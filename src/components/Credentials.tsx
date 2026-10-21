@@ -32,7 +32,7 @@ export const Credentials: React.FC = () => {
         <div className="flex items-center space-x-3">
           <ShieldCheck className="w-7 h-7 text-cyan-400" />
           <h2 className="text-2xl sm:text-3xl font-bold font-mono tracking-wider uppercase text-white">
-            Security_Keystore<span className="text-cyan-400">::Certificates</span>
+            Certificates
           </h2>
         </div>
 

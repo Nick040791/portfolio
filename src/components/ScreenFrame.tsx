@@ -8,7 +8,7 @@ import React from 'react';
 export const ScreenFrame: React.FC = () => {
   return (
     <div
-      className="fixed inset-0 pointer-events-none z-50 overflow-hidden"
+      className="fixed inset-0 pointer-events-none z-50 overflow-hidden hidden md:block transform-gpu"
       aria-hidden="true"
     >
       {/* Physical Monitor Bezel (Outer Frame on all 4 edges) */}

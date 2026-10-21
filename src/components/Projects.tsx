@@ -18,7 +18,7 @@ export const Projects: React.FC = () => {
         <div className="flex items-center space-x-3">
           <Boxes className="w-7 h-7 text-cyan-400" />
           <h2 className="text-2xl sm:text-3xl font-bold font-mono tracking-wider uppercase text-white">
-            System_Deployments<span className="text-cyan-400">::Active_Services</span>
+            Projects
           </h2>
         </div>
 
