@@ -9,6 +9,7 @@ export const personalInfo = {
   systemLocation: "Location(Kansas_City_MO)",
   systemStatus: "Sys_Ready",
   systemPrompt: "bash - _init_profile.sh",
+  brandTitle: "NB_ENGINEER",
   terminalUser: "nicholas-beighley",
   terminalHost: "workstation",
   gitWorktreeCommand: "git worktree add -b feature/add-say-hello ../feature-say-hello",
@@ -59,7 +60,7 @@ export const journeyData: JourneyItem[] = [
     icon: <Code className="w-5 h-5 text-lime-400" />,
     details: [
       "Mastered algorithms/data structures via freeCodeCamp's Python & JavaScript certifications.",
-      "Solidified systems admin, Linux CLI, and networking via Google IT Support Professional Certificate.",
+      "Solidified Linux CLI, networking protocols, and systems infrastructure via Google IT Support Professional Certificate.",
       "Developed prompt engineering frameworks through Vanderbilt University's specialization."
     ]
   },
@@ -104,7 +105,7 @@ export const projectsData: ProjectItem[] = [
   {
     title: "Dictator & Alex",
     subtitle: "Systems & Logic Tools",
-    description: "Custom built repositories exploring hardware-adjacent logic, system administration scripts, and foundational problem-solving applications.",
+    description: "Custom built repositories exploring hardware-adjacent logic, system automation tools, and foundational problem-solving applications.",
     tech: ["System Scripts", "Algorithms", "Logic"],
     link: "https://github.com/Nick040791/Dictator",
     accent: "cyan"
