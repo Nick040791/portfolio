@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 @layer utilities {
+  .screen-bg,
   .microdot-bg {
-    background-color: #07090e;
+    background-color: #020604;
     background-image: 
-      radial-gradient(rgba(34, 211, 238, 0.12) 1px, transparent 1px),
-      radial-gradient(circle at 50% 30%, rgba(20, 24, 38, 0.4) 0%, rgba(7, 9, 14, 0.95) 100%);
-    background-size: 24px 24px, 100% 100%;
+      radial-gradient(ellipse 95% 85% at 50% 15%, rgba(8, 42, 23, 0.45) 0%, rgba(4, 20, 11, 0.75) 50%, #020604 100%),
+      linear-gradient(to bottom, rgba(6, 28, 15, 0.25) 0%, rgba(2, 7, 4, 0.9) 100%);
   }
   
   .glass-panel {

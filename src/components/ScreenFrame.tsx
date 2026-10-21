@@ -17,7 +17,7 @@ export const ScreenFrame: React.FC = () => {
         <div className="absolute inset-0 ring-1 ring-white/10 shadow-[inset_0_2px_4px_rgba(255,255,255,0.05),inset_0_-2px_6px_rgba(0,0,0,0.9)]" />
 
         {/* Screen Glass Vignette & Curvature Shadow */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_65%,rgba(0,0,0,0.65)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_60%,rgba(1,8,4,0.7)_100%)]" />
 
         {/* Diagonal Screen Glass Reflection (Gloss Sheen in corner) */}
         <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-bl from-white/[0.025] via-transparent to-transparent" />
