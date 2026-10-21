@@ -19,6 +19,7 @@ export const personalInfo = {
   gitWorktreeCommand: "git worktree add -b feature/add-say-hello ../feature-say-hello",
   gitCdCommand: "cd ../feature-say-hello",
   dockerCommand: "docker run -it --name candidate-profile portfolio",
+  clearCommand: "clear",
   containerUser: "root@candidate-profile",
   containerMount: "/portfolio",
   introBio: "Full-stack software engineer with an IT root-cause analysis background, experienced in engineering full-stack applications across Java, Spring Boot, SQL, and React. Bridges development and quality engineering by automating REST API test suites, benchmarking system throughput and latency, as well as leveraging AI tools to generate edge-case test coverage. LaunchCode Full-Stack graduate committed to delivering robust code and continuous system stability.",
