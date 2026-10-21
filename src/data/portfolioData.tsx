@@ -30,9 +30,10 @@ export const personalInfo = {
     freecodecamp: "https://www.freecodecamp.org/mrnicholasb",
     launchcode: "https://www.launchcode.org/",
     mdhewd: "https://dhewd.mo.gov/",
-    resume: `${baseUrl}Nicholas_Beighley_Resume.pdf`
+    resume: `${baseUrl}Nicholas_Beighley_Full-Stack_Software_Engineer_Resume.pdf`
   },
-  resumeUrl: `${baseUrl}Nicholas_Beighley_Resume.pdf`
+  resumeUrl: `${baseUrl}Nicholas_Beighley_Full-Stack_Software_Engineer_Resume.pdf`,
+  resumeFileName: "Nicholas_Beighley_Full-Stack_Software_Engineer_Resume.pdf"
 };
 
 export const navLinks = [
