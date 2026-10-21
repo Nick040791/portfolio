@@ -39,6 +39,7 @@ export interface Certificate {
   credentialId?: string;
   skills?: string[];
   verifyUrl?: string;
+  status?: 'verified' | 'in_progress';
 }
 
 export interface CredentialCategory {

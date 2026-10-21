@@ -219,7 +219,8 @@ export const credentialsData: CredentialsData = {
       {
         name: "Agentic Engineer Certificate",
         issuer: "Hire-Human / LaunchCode",
-        date: "10/2026",
+        date: "In Progress",
+        status: "in_progress",
         logoId: "hirehuman",
         credentialId: "HH-AIE-2026-04",
         skills: ["Multi-Agent Orchestration", "MCP Protocols", "Eval-Gated CI/CD"]

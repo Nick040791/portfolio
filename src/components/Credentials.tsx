@@ -21,6 +21,9 @@ export const Credentials: React.FC = () => {
   const activeScheme = getColorScheme(activeData.color);
 
   const sectorKeys: CredentialSector[] = ['software', 'ai', 'data'];
+  const allCerts = sectorKeys.flatMap((k) => credentialsData[k].certs);
+  const inProgressTotal = allCerts.filter((c) => c.status === 'in_progress').length;
+  const verifiedTotal = allCerts.length - inProgressTotal;
 
   return (
     <section id="credentials" className="relative z-10 pb-16 space-y-6">
@@ -37,7 +40,13 @@ export const Credentials: React.FC = () => {
         <div className="flex items-center space-x-2 px-3 py-1 glass-panel rounded-md border border-cyan-500/20 text-xs font-mono self-start sm:self-auto">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-slate-400">PKI STATUS:</span>
-          <span className="text-emerald-400 font-semibold">11/11 Verified Valid</span>
+          <span className="text-emerald-400 font-semibold">{verifiedTotal} Verified</span>
+          {inProgressTotal > 0 && (
+            <>
+              <span className="text-slate-600">/</span>
+              <span className="text-amber-400 font-semibold">{inProgressTotal} In Progress</span>
+            </>
+          )}
         </div>
       </div>
 
@@ -198,7 +207,7 @@ export const Credentials: React.FC = () => {
                   </h3>
                 </div>
                 <div className="text-xs font-mono px-2.5 py-1 rounded bg-[#151822] text-slate-400 border border-white/10">
-                  <span className={activeScheme.text}>{activeData.certs.length}</span> Verified Records
+                  <span className={activeScheme.text}>{activeData.certs.length}</span> Records Logged
                 </div>
               </div>
 
@@ -217,10 +226,17 @@ export const Credentials: React.FC = () => {
                         </div>
 
                         <div className="flex items-center space-x-2">
-                          <span className="flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                            VERIFIED
-                          </span>
+                          {cert.status === 'in_progress' ? (
+                            <span className="flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/40">
+                              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                              IN_PROGRESS
+                            </span>
+                          ) : (
+                            <span className="flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                              VERIFIED
+                            </span>
+                          )}
                           <span className="font-mono text-[11px] text-slate-400 bg-black/40 px-2 py-0.5 rounded border border-white/5">
                             {cert.date}
                           </span>
