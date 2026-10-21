@@ -11,6 +11,7 @@ import {
   Tag,
   CheckCircle2,
   FolderTree,
+  Terminal,
 } from 'lucide-react';
 import { journeyData } from '../data/portfolioData';
 import { getColorScheme } from '../utils/theme';
@@ -19,6 +20,15 @@ export const Journey: React.FC = () => {
   const [activeCommitIndex, setActiveCommitIndex] = useState(0);
   const activePhase = journeyData[activeCommitIndex];
   const activeScheme = getColorScheme(activePhase.color);
+  const phaseParts = activePhase.phase.includes(':')
+    ? {
+        prefix: activePhase.phase.split(':')[0].trim(),
+        title: activePhase.phase.split(':').slice(1).join(':').trim(),
+      }
+    : {
+        prefix: 'Phase',
+        title: activePhase.phase,
+      };
 
   return (
     <section id="journey" className="relative z-10 space-y-6">
@@ -224,14 +234,62 @@ export const Journey: React.FC = () => {
                 </div>
               </div>
 
-              {/* Commit Message & Narrative */}
-              <div>
-                <div className="text-xs uppercase text-slate-500 font-semibold tracking-wider mb-2">
-                  /// Commit Message
+              {/* Commit Message & Core Narrative (Heart of the Information) */}
+              <div
+                className={`relative overflow-hidden rounded-lg border-2 ${activeScheme.border} bg-gradient-to-br from-[#181a24] via-[#12141c] to-[#0a0b10] p-4 sm:p-5 shadow-[0_0_30px_rgba(0,0,0,0.8)] ${activeScheme.glowShadow} transition-all duration-300`}
+              >
+                {/* Watermark Hash in background */}
+                <div className="absolute right-3 -bottom-2 text-white/[0.03] select-none pointer-events-none font-mono text-6xl sm:text-7xl font-black">
+                  {activePhase.commitHash}
                 </div>
-                <h3 className="text-base sm:text-lg font-bold text-white font-sans">
-                  {activePhase.phase}
-                </h3>
+
+                {/* Top Badge & Telemetry Bar */}
+                <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <div className="flex items-center space-x-2">
+                    <span
+                      className={`px-2.5 py-1 rounded text-xs font-mono font-bold tracking-wider uppercase ${activeScheme.bgSoft} ${activeScheme.text} border ${activeScheme.borderLight} flex items-center gap-1.5 shadow-sm`}
+                    >
+                      <Terminal className="w-3.5 h-3.5" />
+                      COMMIT MESSAGE // CORE NARRATIVE
+                    </span>
+                    <span className="text-slate-500 text-xs font-mono hidden sm:inline">
+                      hash: <span className="text-slate-300 font-semibold">{activePhase.commitHash}</span>
+                    </span>
+                  </div>
+
+                  {activePhase.telemetryTag && (
+                    <span className="text-[10px] sm:text-[11px] font-mono text-cyan-300 bg-cyan-950/60 px-2.5 py-1 rounded border border-cyan-500/40 flex items-center gap-1.5 font-semibold">
+                      <span className={`w-1.5 h-1.5 rounded-full ${activePhase.isCurrent ? 'bg-emerald-400 animate-pulse' : 'bg-cyan-400'}`} />
+                      {activePhase.telemetryTag}
+                    </span>
+                  )}
+                </div>
+
+                {/* Main Headline (Heart of Information) */}
+                <div className="relative z-10 space-y-2">
+                  <div className="flex flex-col sm:flex-row sm:items-baseline gap-2">
+                    <span
+                      className={`text-xs sm:text-sm font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded ${activeScheme.bgSubtle} ${activeScheme.text} border ${activeScheme.borderSubtle} w-fit`}
+                    >
+                      {phaseParts.prefix}
+                    </span>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-snug drop-shadow-md">
+                      {phaseParts.title}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Terminal Footnote */}
+                <div className="relative z-10 mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-slate-400">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lime-400 font-bold">$</span>
+                    <span className="text-slate-300">git log -1 --pretty=format:"%s"</span>
+                  </div>
+                  <div className="flex items-center space-x-1.5 text-[11px]">
+                    <span className="text-slate-500">scope:</span>
+                    <span className={`font-semibold ${activeScheme.text}`}>{activePhase.scope}</span>
+                  </div>
+                </div>
               </div>
 
               {/* Changelog Additions (+ changes) */}
