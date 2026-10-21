@@ -50,6 +50,31 @@
   .animate-circuit-pulse {
     animation: circuit-pulse 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
+
+  /* Thin, themed scrollbar for inner panes (certificate vault) */
+  .cert-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(34, 211, 238, 0.35) rgba(34, 211, 238, 0.06);
+    overscroll-behavior: contain;
+  }
+
+  .cert-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .cert-scroll::-webkit-scrollbar-track {
+    background: rgba(34, 211, 238, 0.06);
+    border-radius: 3px;
+  }
+
+  .cert-scroll::-webkit-scrollbar-thumb {
+    background: rgba(34, 211, 238, 0.35);
+    border-radius: 3px;
+  }
+
+  .cert-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(34, 211, 238, 0.6);
+  }
 }
 
 @keyframes scan {
