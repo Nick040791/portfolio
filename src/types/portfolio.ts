@@ -30,6 +30,10 @@ export interface Certificate {
   name: string;
   issuer: string;
   date: string;
+  logoId?: string;
+  credentialId?: string;
+  skills?: string[];
+  verifyUrl?: string;
 }
 
 export interface CredentialCategory {

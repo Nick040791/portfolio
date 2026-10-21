@@ -146,11 +146,46 @@ export const credentialsData: CredentialsData = {
     icon: <Code className="w-6 h-6" />,
     color: "cyan",
     certs: [
-      { name: "Full-Stack Software Development", issuer: "Launch Code", date: "10/2026" },
-      { name: "Foundational C# with Microsoft", issuer: "freeCodeCamp", date: "10/2026" },
-      { name: "JavaScript Algorithms & Data Structures", issuer: "freeCodeCamp", date: "02/2025" },
-      { name: "Responsive Web Design", issuer: "freeCodeCamp", date: "01/2025" },
-      { name: "Scientific Computing with Python", issuer: "freeCodeCamp", date: "08/2024" }
+      {
+        name: "Full-Stack Software Development",
+        issuer: "LaunchCode",
+        date: "10/2026",
+        logoId: "launchcode",
+        credentialId: "LC-2026-FSD-098",
+        skills: ["Java", "Spring Boot", "MySQL", "Agile", "REST APIs"]
+      },
+      {
+        name: "Foundational C# with Microsoft",
+        issuer: "freeCodeCamp / Microsoft",
+        date: "10/2026",
+        logoId: "microsoft",
+        credentialId: "FCC-MSFT-C814",
+        skills: ["C#", ".NET", "OOP", "Console Apps"]
+      },
+      {
+        name: "JavaScript Algorithms & Data Structures",
+        issuer: "freeCodeCamp",
+        date: "02/2025",
+        logoId: "freecodecamp",
+        credentialId: "FCC-JS-9023",
+        skills: ["ES6+", "Data Structures", "Algorithms", "Debugging"]
+      },
+      {
+        name: "Responsive Web Design",
+        issuer: "freeCodeCamp",
+        date: "01/2025",
+        logoId: "freecodecamp",
+        credentialId: "FCC-RWD-4190",
+        skills: ["HTML5", "CSS3", "Flexbox", "CSS Grid", "Accessibility"]
+      },
+      {
+        name: "Scientific Computing with Python",
+        issuer: "freeCodeCamp",
+        date: "08/2024",
+        logoId: "python",
+        credentialId: "FCC-PY-7712",
+        skills: ["Python", "Algorithms", "Data Processing", "Complexity"]
+      }
     ]
   },
   ai: {
@@ -158,9 +193,30 @@ export const credentialsData: CredentialsData = {
     icon: <Cpu className="w-6 h-6" />,
     color: "magenta",
     certs: [
-      { name: "Agentic Engineer Certificate", issuer: "Hire-Human / Launch Code", date: "10/2026" },
-      { name: "Google AI Professional", issuer: "MDHEWD Coursera", date: "10/2026" },
-      { name: "Prompt Engineering Specialization", issuer: "Vanderbilt University", date: "08/2025" }
+      {
+        name: "Agentic Engineer Certificate",
+        issuer: "Hire-Human / LaunchCode",
+        date: "10/2026",
+        logoId: "hirehuman",
+        credentialId: "HH-AIE-2026-04",
+        skills: ["Multi-Agent Orchestration", "MCP Protocols", "Eval-Gated CI/CD"]
+      },
+      {
+        name: "Google AI Professional",
+        issuer: "Google / MDHEWD Coursera",
+        date: "10/2026",
+        logoId: "google",
+        credentialId: "GOOG-AI-9914",
+        skills: ["Generative AI", "LLM Integration", "Prompt Engineering"]
+      },
+      {
+        name: "Prompt Engineering Specialization",
+        issuer: "Vanderbilt University",
+        date: "08/2025",
+        logoId: "vanderbilt",
+        credentialId: "VAND-PE-5501",
+        skills: ["Few-Shot Prompting", "Chain-of-Thought", "Task Decomposition"]
+      }
     ]
   },
   data: {
@@ -168,9 +224,30 @@ export const credentialsData: CredentialsData = {
     icon: <Database className="w-6 h-6" />,
     color: "lime",
     certs: [
-      { name: "Google Business Intelligence", issuer: "MDHEWD Coursera", date: "10/2026" },
-      { name: "Google Data Analytics", issuer: "MDHEWD Coursera", date: "10/2026" },
-      { name: "Google IT Support Professional", issuer: "MDHEWD Coursera", date: "09/2025" }
+      {
+        name: "Google Business Intelligence",
+        issuer: "Google / MDHEWD Coursera",
+        date: "10/2026",
+        logoId: "google",
+        credentialId: "GOOG-BI-3381",
+        skills: ["BigQuery", "Tableau", "SQL Pipelines", "BI Dashboards"]
+      },
+      {
+        name: "Google Data Analytics",
+        issuer: "Google / MDHEWD Coursera",
+        date: "10/2026",
+        logoId: "google",
+        credentialId: "GOOG-DA-1102",
+        skills: ["R Programming", "SQL", "Data Cleaning", "Data Visualization"]
+      },
+      {
+        name: "Google IT Support Professional",
+        issuer: "Google / MDHEWD Coursera",
+        date: "09/2025",
+        logoId: "google",
+        credentialId: "GOOG-IT-8840",
+        skills: ["Linux CLI", "Networking Protocols", "Security", "Hardware Diagnostics"]
+      }
     ]
   }
 };

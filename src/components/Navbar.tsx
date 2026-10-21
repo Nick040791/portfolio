@@ -10,7 +10,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   brandTitle = personalInfo.brandTitle ?? 'NB_ENGINEER'
 }) => {
   return (
-    <nav className="fixed top-0 w-full z-50 glass-panel border-b-0 border-t-0 border-l-0 border-r-0 border-b-cyan-500/20">
+    <nav className="fixed top-0 w-full z-40 glass-panel border-b-0 border-t-0 border-l-0 border-r-0 border-b-cyan-500/20 pt-2 sm:pt-3 lg:pt-4">
       <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
         <a href="#" className="flex items-center space-x-2 group">
           <Activity className="w-6 h-6 text-cyan-400 animate-pulse" />

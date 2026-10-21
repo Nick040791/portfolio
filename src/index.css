@@ -4,9 +4,11 @@
 
 @layer utilities {
   .microdot-bg {
-    background-color: #050505;
-    background-image: radial-gradient(rgba(34, 211, 238, 0.15) 1px, transparent 1px);
-    background-size: 24px 24px;
+    background-color: #07090e;
+    background-image: 
+      radial-gradient(rgba(34, 211, 238, 0.12) 1px, transparent 1px),
+      radial-gradient(circle at 50% 30%, rgba(20, 24, 38, 0.4) 0%, rgba(7, 9, 14, 0.95) 100%);
+    background-size: 24px 24px, 100% 100%;
   }
   
   .glass-panel {

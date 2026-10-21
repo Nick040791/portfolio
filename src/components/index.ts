@@ -8,4 +8,6 @@ export { ProjectCard } from './ProjectCard';
 export { Credentials } from './Credentials';
 export { Footer } from './Footer';
 export { Scanline } from './Scanline';
+export { ScreenFrame } from './ScreenFrame';
 export { GithubIcon, LinkedinIcon } from './Icons';
+export * from './Logos';
