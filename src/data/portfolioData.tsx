@@ -152,7 +152,8 @@ export const credentialsData: CredentialsData = {
         date: "10/2026",
         logoId: "launchcode",
         credentialId: "LC-2026-FSD-098",
-        skills: ["Java", "Spring Boot", "MySQL", "Agile", "REST APIs"]
+        skills: ["Java", "Spring Boot", "MySQL", "Agile", "REST APIs"],
+        verifyUrl: "/certificates/LaunchCode_Certificate_Nicholas_Beighley.pdf"
       },
       {
         name: "Foundational C# with Microsoft",
