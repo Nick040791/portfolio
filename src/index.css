@@ -40,10 +40,13 @@
     width: 100%;
     height: 100px;
     z-index: 50;
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
     pointer-events: none;
     background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(34, 211, 238, 0.1) 50%, rgba(255,255,255,0));
     opacity: 0.1;
+    will-change: transform;
     animation: scan 8s linear infinite;
   }
 
@@ -78,8 +81,8 @@
 }
 
 @keyframes scan {
-  0% { top: -100px; }
-  100% { top: 100%; }
+  0% { transform: translateY(-100px); }
+  100% { transform: translateY(100vh); }
 }
 
 @keyframes circuit-pulse {
