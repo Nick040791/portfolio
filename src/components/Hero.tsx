@@ -1,8 +1,8 @@
 import React from 'react';
-import { Mail, Flame, GraduationCap } from 'lucide-react';
+import { Mail, GraduationCap } from 'lucide-react';
 import { UbuntuTerminal } from './UbuntuTerminal';
 import { GithubIcon, LinkedinIcon } from './Icons';
-import { LaunchCodeLogo } from './Logos';
+import { LaunchCodeLogo, FreeCodeCampLogo } from './Logos';
 import { personalInfo } from '../data/portfolioData';
 
 export const Hero: React.FC = () => {
@@ -71,7 +71,7 @@ export const Hero: React.FC = () => {
           rel="noreferrer"
           className="flex items-center justify-center space-x-2 px-4 py-3 glass-panel rounded-md text-cyan-400 font-mono text-sm uppercase tracking-wider neon-border-cyan transition-all duration-300 hover:scale-[1.02]"
         >
-          <Flame className="w-4 h-4 flex-shrink-0" />
+          <FreeCodeCampLogo className="w-4 h-4 flex-shrink-0" />
           <span className="truncate">FreeCodeCamp_ID</span>
         </a>
 
