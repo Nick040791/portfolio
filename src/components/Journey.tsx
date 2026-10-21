@@ -4,7 +4,11 @@ import { journeyData } from '../data/portfolioData';
 import { getColorScheme } from '../utils/theme';
 
 export const Journey: React.FC = () => {
-  const [selectedPhase, setSelectedPhase] = useState<number | null>(0);
+  const [selectedPhase, setSelectedPhase] = useState<number | null>(null);
+
+  const handleTogglePhase = (index: number) => {
+    setSelectedPhase((prev) => (prev === index ? null : index));
+  };
 
   return (
     <section id="journey" className="relative z-10">
@@ -39,18 +43,18 @@ export const Journey: React.FC = () => {
           const isSelected = selectedPhase === index;
 
           return (
-            <div
-              key={index}
-              onClick={() => setSelectedPhase(index)}
-              className="relative pl-10 md:pl-16 group cursor-pointer transition-all duration-300"
-            >
-              {/* Glowing Circuit Node */}
-              <div
-                className={`absolute -left-[21px] top-1 p-2 rounded-full bg-[#050505] border-2 ${
+            <div key={index} className="relative pl-10 md:pl-16 group">
+              {/* Glowing Circuit Node (clickable button) */}
+              <button
+                type="button"
+                onClick={() => handleTogglePhase(index)}
+                className={`absolute -left-[21px] top-1 p-2 rounded-full bg-[#050505] border-2 cursor-pointer ${
                   scheme.nodeBorder
                 } transition-all duration-300 ${
                   isSelected ? 'scale-110 shadow-[0_0_22px_currentColor]' : 'group-hover:scale-110'
                 }`}
+                title={`Inspect ${item.phase}`}
+                aria-label={`Inspect ${item.phase}`}
               >
                 {/* Active Thread Radar Pulse on Current Phase */}
                 {item.isCurrent && (
@@ -60,14 +64,15 @@ export const Journey: React.FC = () => {
                   />
                 )}
                 {item.icon}
-              </div>
+              </button>
 
-              {/* Milestone Narrative Card */}
+              {/* Milestone Narrative Card (interactive only inside the card boundaries) */}
               <div
-                className={`glass-panel p-6 rounded-lg border-l-4 ${scheme.border} transition-all duration-300 ${
+                onClick={() => handleTogglePhase(index)}
+                className={`glass-panel p-6 rounded-lg border-l-4 ${scheme.border} cursor-pointer transition-all duration-300 ${
                   isSelected
-                    ? `bg-white/10 ${scheme.glowShadow} translate-x-1 border-l-[6px]`
-                    : 'hover:bg-white/5 hover:translate-x-1'
+                    ? `bg-white/10 ${scheme.glowShadow} translate-x-1.5 border-l-[6px]`
+                    : `hover:bg-white/10 hover:translate-x-1.5 hover:border-l-[6px] hover:${scheme.glowShadow}`
                 }`}
               >
                 {/* Card Header & Status Badges */}
