@@ -1,6 +1,10 @@
 import { Cpu, Server, Code, MonitorPlay, Database } from 'lucide-react';
 import { JourneyItem, ProjectItem, CredentialsData } from '../types/portfolio';
 
+const baseUrl = (import.meta.env.BASE_URL ?? '/').endsWith('/')
+  ? import.meta.env.BASE_URL ?? '/'
+  : `${import.meta.env.BASE_URL}/`;
+
 export const personalInfo = {
   name: "Nicholas",
   lastName: "Beighley",
@@ -25,9 +29,9 @@ export const personalInfo = {
     freecodecamp: "https://www.freecodecamp.org/mrnicholasb",
     launchcode: "https://www.launchcode.org/",
     mdhewd: "https://dhewd.mo.gov/",
-    resume: "/Nicholas_Beighley_Resume.pdf"
+    resume: `${baseUrl}Nicholas_Beighley_Resume.pdf`
   },
-  resumeUrl: "/Nicholas_Beighley_Resume.pdf"
+  resumeUrl: `${baseUrl}Nicholas_Beighley_Resume.pdf`
 };
 
 export const navLinks = [
@@ -171,7 +175,7 @@ export const credentialsData: CredentialsData = {
         logoId: "launchcode",
         credentialId: "LC-2026-FSD-098",
         skills: ["Java", "Spring Boot", "MySQL", "Agile", "REST APIs"],
-        verifyUrl: "/certificates/LaunchCode_Certificate_Nicholas_Beighley.pdf"
+        verifyUrl: `${baseUrl}certificates/LaunchCode_Certificate_Nicholas_Beighley.pdf`
       },
       {
         name: "Foundational C# with Microsoft",
