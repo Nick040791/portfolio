@@ -8,6 +8,7 @@ import {
   Menu,
   Terminal,
   FolderLock,
+  ExternalLink,
 } from 'lucide-react';
 import { credentialsData } from '../data/portfolioData';
 import { CredentialSector } from '../types/portfolio';
@@ -228,9 +229,24 @@ export const Credentials: React.FC = () => {
 
                       {/* Certificate Name & Issuer */}
                       <div className="space-y-1 mb-3">
-                        <h4 className="text-sm sm:text-base font-bold text-white font-sans leading-snug group-hover:text-cyan-300 transition-colors">
-                          {cert.name}
-                        </h4>
+                        {cert.verifyUrl ? (
+                          <a
+                            href={cert.verifyUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1.5 group/title"
+                            title={`Verify ${cert.name} on official portal`}
+                          >
+                            <h4 className="text-sm sm:text-base font-bold text-white font-sans leading-snug group-hover/title:text-cyan-300 transition-colors">
+                              {cert.name}
+                            </h4>
+                            <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover/title:text-cyan-300 transition-colors flex-shrink-0" />
+                          </a>
+                        ) : (
+                          <h4 className="text-sm sm:text-base font-bold text-white font-sans leading-snug">
+                            {cert.name}
+                          </h4>
+                        )}
                         <div className="flex items-center space-x-1.5 text-xs text-slate-400 font-mono">
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
                           <span className="truncate">{cert.issuer}</span>
@@ -252,13 +268,26 @@ export const Credentials: React.FC = () => {
                       )}
                     </div>
 
-                    {/* Bottom Metadata: Credential ID / Hash */}
+                    {/* Bottom Metadata: Credential ID / Verification Link */}
                     {cert.credentialId && (
                       <div className="pt-2.5 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-slate-500">
                         <span>ID: <span className="text-slate-400">{cert.credentialId}</span></span>
-                        <span className="text-emerald-500 flex items-center gap-1">
-                          x509_OK
-                        </span>
+                        {cert.verifyUrl ? (
+                          <a
+                            href={cert.verifyUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center space-x-1 text-cyan-400 hover:text-cyan-300 transition-colors group/verify cursor-pointer hover:underline"
+                            title="Open verified certificate link"
+                          >
+                            <span>Verify_PKI</span>
+                            <ExternalLink className="w-2.5 h-2.5 group-hover/verify:translate-x-0.5 group-hover/verify:-translate-y-0.5 transition-transform" />
+                          </a>
+                        ) : (
+                          <span className="text-emerald-500 flex items-center gap-1">
+                            x509_OK
+                          </span>
+                        )}
                       </div>
                     )}
                   </div>

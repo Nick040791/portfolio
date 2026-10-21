@@ -160,7 +160,8 @@ export const credentialsData: CredentialsData = {
         date: "10/2026",
         logoId: "microsoft",
         credentialId: "FCC-MSFT-C814",
-        skills: ["C#", ".NET", "OOP", "Console Apps"]
+        skills: ["C#", ".NET", "OOP", "Console Apps"],
+        verifyUrl: "https://www.freecodecamp.org/certification/mrnicholasb/foundational-c-sharp-with-microsoft"
       },
       {
         name: "JavaScript Algorithms & Data Structures",
@@ -168,7 +169,8 @@ export const credentialsData: CredentialsData = {
         date: "02/2025",
         logoId: "freecodecamp",
         credentialId: "FCC-JS-9023",
-        skills: ["ES6+", "Data Structures", "Algorithms", "Debugging"]
+        skills: ["ES6+", "Data Structures", "Algorithms", "Debugging"],
+        verifyUrl: "https://www.freecodecamp.org/certification/mrnicholasb/javascript-algorithms-and-data-structures-v8"
       },
       {
         name: "Responsive Web Design",
@@ -176,7 +178,8 @@ export const credentialsData: CredentialsData = {
         date: "01/2025",
         logoId: "freecodecamp",
         credentialId: "FCC-RWD-4190",
-        skills: ["HTML5", "CSS3", "Flexbox", "CSS Grid", "Accessibility"]
+        skills: ["HTML5", "CSS3", "Flexbox", "CSS Grid", "Accessibility"],
+        verifyUrl: "https://www.freecodecamp.org/certification/mrnicholasb/responsive-web-design"
       },
       {
         name: "Scientific Computing with Python",
@@ -184,7 +187,8 @@ export const credentialsData: CredentialsData = {
         date: "08/2024",
         logoId: "python",
         credentialId: "FCC-PY-7712",
-        skills: ["Python", "Algorithms", "Data Processing", "Complexity"]
+        skills: ["Python", "Algorithms", "Data Processing", "Complexity"],
+        verifyUrl: "https://www.freecodecamp.org/certification/mrnicholasb/scientific-computing-with-python-v7"
       }
     ]
   },
@@ -207,7 +211,8 @@ export const credentialsData: CredentialsData = {
         date: "10/2026",
         logoId: "google",
         credentialId: "GOOG-AI-9914",
-        skills: ["Generative AI", "LLM Integration", "Prompt Engineering"]
+        skills: ["Generative AI", "LLM Integration", "Prompt Engineering"],
+        verifyUrl: "https://coursera.org/share/b4ed3ddaca3a81a71d858c3f00c57851"
       },
       {
         name: "Prompt Engineering Specialization",
@@ -215,7 +220,8 @@ export const credentialsData: CredentialsData = {
         date: "08/2025",
         logoId: "vanderbilt",
         credentialId: "VAND-PE-5501",
-        skills: ["Few-Shot Prompting", "Chain-of-Thought", "Task Decomposition"]
+        skills: ["Few-Shot Prompting", "Chain-of-Thought", "Task Decomposition"],
+        verifyUrl: "https://coursera.org/share/dad0317dd1c1b26ffc44b1fcb8972ca6"
       }
     ]
   },
@@ -230,7 +236,8 @@ export const credentialsData: CredentialsData = {
         date: "10/2026",
         logoId: "google",
         credentialId: "GOOG-BI-3381",
-        skills: ["BigQuery", "Tableau", "SQL Pipelines", "BI Dashboards"]
+        skills: ["BigQuery", "Tableau", "SQL Pipelines", "BI Dashboards"],
+        verifyUrl: "https://coursera.org/share/1125e50bd079c5368fd1d2254395b06d"
       },
       {
         name: "Google Data Analytics",
@@ -238,7 +245,8 @@ export const credentialsData: CredentialsData = {
         date: "10/2026",
         logoId: "google",
         credentialId: "GOOG-DA-1102",
-        skills: ["R Programming", "SQL", "Data Cleaning", "Data Visualization"]
+        skills: ["R Programming", "SQL", "Data Cleaning", "Data Visualization"],
+        verifyUrl: "https://coursera.org/share/0319f37daccf9569190fb9fd8fa3ecdd"
       },
       {
         name: "Google IT Support Professional",
@@ -246,7 +254,8 @@ export const credentialsData: CredentialsData = {
         date: "09/2025",
         logoId: "google",
         credentialId: "GOOG-IT-8840",
-        skills: ["Linux CLI", "Networking Protocols", "Security", "Hardware Diagnostics"]
+        skills: ["Linux CLI", "Networking Protocols", "Security", "Hardware Diagnostics"],
+        verifyUrl: "https://coursera.org/share/50295152e349a72b9942aac69f38cbb8"
       }
     ]
   }
