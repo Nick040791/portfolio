@@ -31,7 +31,7 @@ export const personalInfo = {
 export const navLinks = [
   { label: "/CAREER_PATH", href: "#journey" },
   { label: "/PROJECTS", href: "#projects" },
-  { label: "/DATA_CORE", href: "#credentials" }
+  { label: "/CREDENTIALS", href: "#credentials" }
 ];
 
 export const journeyData: JourneyItem[] = [

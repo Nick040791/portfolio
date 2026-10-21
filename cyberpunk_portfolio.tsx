@@ -223,9 +223,9 @@ export default function App() {
             <span className="font-mono font-bold text-lg tracking-widest neon-text-cyan">NB_SYS_ADMIN</span>
           </div>
           <div className="hidden md:flex space-x-6 font-mono text-sm text-cyan-500/70">
-            <a href="#journey" className="hover:text-cyan-400 transition-colors cursor-pointer">/JOURNEY</a>
+            <a href="#journey" className="hover:text-cyan-400 transition-colors cursor-pointer">/CAREER_PATH</a>
             <a href="#projects" className="hover:text-cyan-400 transition-colors cursor-pointer">/PROJECTS</a>
-            <a href="#credentials" className="hover:text-cyan-400 transition-colors cursor-pointer">/DATA_CORE</a>
+            <a href="#credentials" className="hover:text-cyan-400 transition-colors cursor-pointer">/CREDENTIALS</a>
           </div>
         </div>
       </nav>
