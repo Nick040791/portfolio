@@ -6,7 +6,7 @@ interface LogoProps {
 }
 
 /**
- * LaunchCode official bracket mark `< / >`
+ * LaunchCode official Rocket over Underscore mark
  */
 export const LaunchCodeLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6' }) => (
   <svg
@@ -16,29 +16,71 @@ export const LaunchCodeLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6' }) =
     className={className}
     aria-label="LaunchCode Logo"
   >
-    <rect width="64" height="64" rx="14" fill="#0A1826" stroke="#00A3E0" strokeWidth="2.5" />
-    {/* Left Angle Bracket < */}
+    <rect width="64" height="64" rx="14" fill="#09131F" stroke="#0284C7" strokeWidth="1.5" />
+    
+    {/* Rocket Fuselage */}
     <path
-      d="M23 20L11 32L23 44"
-      stroke="#00A3E0"
-      strokeWidth="5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    {/* Center Forward Slash / */}
-    <path
-      d="M38 18L26 46"
+      d="M32 9C27.5 15.5 24.5 25 24.5 35.5C24.5 36.5 25 37.5 26 37.5H38C39 37.5 39.5 36.5 39.5 35.5C39.5 25 36.5 15.5 32 9Z"
       stroke="#38BDF8"
-      strokeWidth="4.5"
-      strokeLinecap="round"
-    />
-    {/* Right Angle Bracket > */}
-    <path
-      d="M41 20L53 32L41 44"
-      stroke="#00A3E0"
-      strokeWidth="5"
+      strokeWidth="2.4"
       strokeLinecap="round"
       strokeLinejoin="round"
+      fill="#0C1E34"
+    />
+
+    {/* Cockpit Porthole Window */}
+    <circle
+      cx="32"
+      cy="21.5"
+      r="3.5"
+      stroke="#38BDF8"
+      strokeWidth="2.2"
+      fill="#09131F"
+    />
+
+    {/* Left Swept Booster Fin */}
+    <path
+      d="M24.5 28.5L16.5 35.5C15.8 36.1 15.8 37.2 16.5 37.8L19.5 40.8C20.1 41.4 21.2 41.4 21.8 40.8L24.5 37.5"
+      stroke="#38BDF8"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="#0C1E34"
+    />
+
+    {/* Right Swept Booster Fin */}
+    <path
+      d="M39.5 28.5L47.5 35.5C48.2 36.1 48.2 37.2 47.5 37.8L44.5 40.8C43.9 41.4 42.8 41.4 42.2 40.8L39.5 37.5"
+      stroke="#38BDF8"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="#0C1E34"
+    />
+
+    {/* Rocket Exhaust Flame */}
+    <path
+      d="M28 37.5L32 46L36 37.5"
+      stroke="#38BDF8"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M32 37.5L32 46"
+      stroke="#38BDF8"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+
+    {/* Horizontal Underscore Bar */}
+    <rect
+      x="14"
+      y="51"
+      width="36"
+      height="4.5"
+      rx="2.25"
+      fill="#38BDF8"
     />
   </svg>
 );
@@ -197,7 +239,7 @@ export const CourseraLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6' }) => 
 );
 
 /**
- * Hire-Human / Agentic Engineering Neural Emblem
+ * Hire-Human official 4-pointed coral star emblem with diamond center cutout
  */
 export const HireHumanLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6' }) => (
   <svg
@@ -207,19 +249,14 @@ export const HireHumanLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6' }) =>
     className={className}
     aria-label="Hire-Human Logo"
   >
-    <rect width="64" height="64" rx="14" fill="#0A181C" stroke="#10B981" strokeWidth="2" />
-    {/* Human / Agentic Neural Node Network */}
-    <circle cx="32" cy="20" r="7" stroke="#34D399" strokeWidth="2.5" fill="#064E3B" />
+    <rect width="64" height="64" rx="14" fill="#1C110F" stroke="#EA580C" strokeWidth="1.5" />
+    
+    {/* Coral 4-pointed rounded cross with concave diamond star center cutout */}
     <path
-      d="M18 48C18 40.3 24.3 34 32 34C39.7 34 46 40.3 46 48"
-      stroke="#34D399"
-      strokeWidth="2.5"
-      strokeLinecap="round"
+      d="M32 10C34.5 10 36.5 11.2 36.5 13.5L36.5 19.5C36.5 24 40 27.5 44.5 27.5L50.5 27.5C52.8 27.5 54 29.5 54 32C54 34.5 52.8 36.5 50.5 36.5L44.5 36.5C40 36.5 36.5 40 36.5 44.5L36.5 50.5C36.5 52.8 34.5 54 32 54C29.5 54 27.5 52.8 27.5 50.5L27.5 44.5C27.5 40 24 36.5 19.5 36.5L13.5 36.5C11.2 36.5 10 34.5 10 32C10 29.5 11.2 27.5 13.5 27.5L19.5 27.5C24 27.5 27.5 24 27.5 19.5L27.5 13.5C27.5 11.2 29.5 10 32 10Z M32 25C32 28.8 35.2 32 39 32C35.2 32 32 35.2 32 39C32 35.2 28.8 32 25 32C28.8 32 32 28.8 32 25Z"
+      fill="#FF6740"
+      fillRule="evenodd"
     />
-    <circle cx="32" cy="20" r="2.5" fill="#A7F3D0" />
-    <circle cx="21" cy="42" r="2" fill="#22D3EE" />
-    <circle cx="43" cy="42" r="2" fill="#22D3EE" />
-    <path d="M22 39L29 25M42 39L35 25" stroke="#22D3EE" strokeWidth="1.2" strokeDasharray="2 2" />
   </svg>
 );
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Mail, Flame, Rocket, GraduationCap } from 'lucide-react';
+import { Mail, Flame, GraduationCap } from 'lucide-react';
 import { UbuntuTerminal } from './UbuntuTerminal';
 import { GithubIcon, LinkedinIcon } from './Icons';
+import { LaunchCodeLogo } from './Logos';
 import { personalInfo } from '../data/portfolioData';
 
 export const Hero: React.FC = () => {
@@ -81,7 +82,7 @@ export const Hero: React.FC = () => {
           rel="noreferrer"
           className="flex items-center justify-center space-x-2 px-4 py-3 glass-panel rounded-md text-fuchsia-400 font-mono text-sm uppercase tracking-wider hover:border-fuchsia-500 hover:shadow-[0_0_15px_rgba(217,70,239,0.4)] transition-all duration-300 hover:scale-[1.02]"
         >
-          <Rocket className="w-4 h-4 flex-shrink-0" />
+          <LaunchCodeLogo className="w-4 h-4 flex-shrink-0" />
           <span className="truncate">LaunchCode_Hub</span>
         </a>
 
