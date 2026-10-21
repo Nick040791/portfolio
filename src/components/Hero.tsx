@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, GraduationCap } from 'lucide-react';
+import { Mail, GraduationCap, Download } from 'lucide-react';
 import { UbuntuTerminal } from './UbuntuTerminal';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import { LaunchCodeLogo, FreeCodeCampLogo } from './Logos';
@@ -8,22 +8,44 @@ import { personalInfo } from '../data/portfolioData';
 export const Hero: React.FC = () => {
   return (
     <section className="relative z-10 flex flex-col items-center max-w-4xl lg:max-w-5xl mx-auto w-full space-y-8 pt-4">
-      {/* Intro Telemetry & Headlines */}
-      <div className="w-full space-y-3">
-        <p className="font-mono text-cyan-400 tracking-widest text-xs sm:text-sm uppercase flex items-center gap-2">
-          <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          /// {personalInfo.systemStatus} : {personalInfo.systemLocation}
-        </p>
-        <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-tight">
-          {personalInfo.name}{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-cyan-300">
-            {personalInfo.lastName}
-          </span>
-        </h1>
-        <h2 className="text-xl md:text-2xl font-light text-slate-400 uppercase tracking-widest border-b border-white/10 pb-4 inline-block">
-          {personalInfo.rolePrefix}{' '}
-          <span className="text-lime-400 font-normal">{personalInfo.roleHighlight}</span>
-        </h2>
+      {/* Intro Telemetry, Headlines & Download Resume Action */}
+      <div className="w-full flex flex-col md:flex-row md:items-end justify-between gap-6 pb-1">
+        <div className="space-y-3">
+          <p className="font-mono text-cyan-400 tracking-widest text-xs sm:text-sm uppercase flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            /// {personalInfo.systemStatus} : {personalInfo.systemLocation}
+          </p>
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-tight">
+            {personalInfo.name}{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-cyan-300">
+              {personalInfo.lastName}
+            </span>
+          </h1>
+          <h2 className="text-xl md:text-2xl font-light text-slate-400 uppercase tracking-widest border-b border-white/10 pb-4 inline-block">
+            {personalInfo.rolePrefix}{' '}
+            <span className="text-lime-400 font-normal">{personalInfo.roleHighlight}</span>
+          </h2>
+        </div>
+
+        {/* Download Resume Button (Right of header, above the terminal) */}
+        <div className="flex items-start md:items-end justify-start md:justify-end flex-shrink-0 self-start md:self-end pb-1">
+          <a
+            href={personalInfo.resumeUrl}
+            download="Nicholas_Beighley_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative inline-flex items-center space-x-2.5 px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg bg-gradient-to-r from-[#17212e] via-[#101923] to-[#0c1219] border border-cyan-500/40 text-cyan-300 hover:text-white hover:border-cyan-400 font-mono text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_20px_rgba(34,211,238,0.18)] hover:shadow-[0_0_30px_rgba(34,211,238,0.38)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+            title="Download Nicholas Beighley's Resume (PDF)"
+            aria-label="Download Nicholas Beighley's Resume"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
+            <Download className="w-4 h-4 text-cyan-400 group-hover:translate-y-0.5 transition-transform" />
+            <span className="font-semibold tracking-wide">Download_Resume</span>
+            <span className="text-[10px] text-slate-400 font-mono px-1.5 py-0.5 rounded bg-black/60 border border-white/10">
+              .PDF
+            </span>
+          </a>
+        </div>
       </div>
 
       {/* Primary Section Focus: Ubuntu Terminal */}

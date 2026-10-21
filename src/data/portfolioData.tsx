@@ -24,8 +24,10 @@ export const personalInfo = {
     email: "mailto:Nick040791@gmail.com",
     freecodecamp: "https://www.freecodecamp.org/mrnicholasb",
     launchcode: "https://www.launchcode.org/",
-    mdhewd: "https://dhewd.mo.gov/"
-  }
+    mdhewd: "https://dhewd.mo.gov/",
+    resume: "/Nicholas_Beighley_Resume.pdf"
+  },
+  resumeUrl: "/Nicholas_Beighley_Resume.pdf"
 };
 
 export const navLinks = [
