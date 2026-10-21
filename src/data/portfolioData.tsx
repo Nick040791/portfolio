@@ -11,6 +11,8 @@ export const personalInfo = {
   systemPrompt: "bash - _init_profile.sh",
   terminalUser: "nicholas-beighley",
   terminalHost: "workstation",
+  gitWorktreeCommand: "git worktree add -b feature/add-say-hello ../feature-say-hello",
+  gitCdCommand: "cd ../feature-say-hello",
   dockerCommand: "docker run -it --name candidate-profile portfolio",
   containerUser: "root@candidate-profile",
   containerMount: "/portfolio",

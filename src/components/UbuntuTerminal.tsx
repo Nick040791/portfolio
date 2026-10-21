@@ -9,6 +9,7 @@ import {
   Terminal,
   RotateCcw,
   Box,
+  GitBranch,
 } from 'lucide-react';
 import { TypewriterText } from './TypewriterText';
 import { personalInfo } from '../data/portfolioData';
@@ -17,7 +18,20 @@ interface UbuntuTerminalProps {
   className?: string;
 }
 
-type Stage = 'TYPE_COMMAND' | 'COMMAND_ENTER' | 'DOCKER_OUTPUT' | 'CONTAINER_READY' | 'TYPE_SUMMARY';
+type Stage =
+  | 'TYPE_WORKTREE'
+  | 'WORKTREE_OUTPUT'
+  | 'TYPE_CD'
+  | 'CD_ENTER'
+  | 'TYPE_DOCKER'
+  | 'DOCKER_OUTPUT'
+  | 'CONTAINER_READY'
+  | 'TYPE_SUMMARY';
+
+const WORKTREE_LOGS = [
+  "Preparing worktree (new branch 'feature/add-say-hello')",
+  "HEAD is now at aeff934 feat: organize portfolio into modular react project",
+];
 
 const DOCKER_LOGS = [
   { text: "Unable to find image 'candidate-profile:latest' locally", color: "text-slate-400" },
@@ -29,18 +43,26 @@ const DOCKER_LOGS = [
 ];
 
 export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }) => {
-  const [stage, setStage] = useState<Stage>('TYPE_COMMAND');
-  const [typedCommand, setTypedCommand] = useState('');
-  const [visibleLogsCount, setVisibleLogsCount] = useState(0);
+  const [stage, setStage] = useState<Stage>('TYPE_WORKTREE');
+  const [typedWorktree, setTypedWorktree] = useState('');
+  const [showWorktreeOutput, setShowWorktreeOutput] = useState(false);
+  const [typedCd, setTypedCd] = useState('');
+  const [typedDocker, setTypedDocker] = useState('');
+  const [visibleDockerLogsCount, setVisibleDockerLogsCount] = useState(0);
   const [sessionKey, setSessionKey] = useState(0);
 
-  const commandText = personalInfo.dockerCommand;
+  const worktreeCommand = personalInfo.gitWorktreeCommand;
+  const cdCommand = personalInfo.gitCdCommand;
+  const dockerCommand = personalInfo.dockerCommand;
 
-  // Restart simulation helper
+  // Restart entire simulation sequence
   const handleRestart = () => {
-    setStage('TYPE_COMMAND');
-    setTypedCommand('');
-    setVisibleLogsCount(0);
+    setStage('TYPE_WORKTREE');
+    setTypedWorktree('');
+    setShowWorktreeOutput(false);
+    setTypedCd('');
+    setTypedDocker('');
+    setVisibleDockerLogsCount(0);
     setSessionKey((prev) => prev + 1);
   };
 
@@ -48,36 +70,89 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
     let isMounted = true;
     let timeoutId: number | undefined;
 
-    // Stage 1: Type the docker run command
-    if (stage === 'TYPE_COMMAND') {
+    // Sequence 1: Type git worktree command
+    if (stage === 'TYPE_WORKTREE') {
       let index = 0;
-      setTypedCommand('');
+      setTypedWorktree('');
+      setShowWorktreeOutput(false);
 
-      const typeNextChar = () => {
+      const typeWorktree = () => {
         if (!isMounted) return;
 
-        if (index < commandText.length) {
+        if (index < worktreeCommand.length) {
           index++;
-          setTypedCommand(commandText.slice(0, index));
-          timeoutId = window.setTimeout(typeNextChar, 24);
+          setTypedWorktree(worktreeCommand.slice(0, index));
+          timeoutId = window.setTimeout(typeWorktree, 18);
         } else {
           timeoutId = window.setTimeout(() => {
-            if (isMounted) setStage('COMMAND_ENTER');
-          }, 240);
+            if (isMounted) setStage('WORKTREE_OUTPUT');
+          }, 200);
         }
       };
 
-      timeoutId = window.setTimeout(typeNextChar, 250);
+      timeoutId = window.setTimeout(typeWorktree, 250);
     }
 
-    // Stage 2: Command executed (Enter pressed)
-    else if (stage === 'COMMAND_ENTER') {
+    // Sequence 2: Worktree output prints
+    else if (stage === 'WORKTREE_OUTPUT') {
+      setShowWorktreeOutput(true);
       timeoutId = window.setTimeout(() => {
-        if (isMounted) setStage('DOCKER_OUTPUT');
-      }, 150);
+        if (isMounted) setStage('TYPE_CD');
+      }, 350);
     }
 
-    // Stage 3: Stream Docker container output logs
+    // Sequence 3: Type cd command into working tree
+    else if (stage === 'TYPE_CD') {
+      let index = 0;
+      setTypedCd('');
+
+      const typeCd = () => {
+        if (!isMounted) return;
+
+        if (index < cdCommand.length) {
+          index++;
+          setTypedCd(cdCommand.slice(0, index));
+          timeoutId = window.setTimeout(typeCd, 22);
+        } else {
+          timeoutId = window.setTimeout(() => {
+            if (isMounted) setStage('CD_ENTER');
+          }, 180);
+        }
+      };
+
+      timeoutId = window.setTimeout(typeCd, 150);
+    }
+
+    // Sequence 4: cd executed, in new working tree
+    else if (stage === 'CD_ENTER') {
+      timeoutId = window.setTimeout(() => {
+        if (isMounted) setStage('TYPE_DOCKER');
+      }, 200);
+    }
+
+    // Sequence 5: Type docker run command in the working tree
+    else if (stage === 'TYPE_DOCKER') {
+      let index = 0;
+      setTypedDocker('');
+
+      const typeDocker = () => {
+        if (!isMounted) return;
+
+        if (index < dockerCommand.length) {
+          index++;
+          setTypedDocker(dockerCommand.slice(0, index));
+          timeoutId = window.setTimeout(typeDocker, 20);
+        } else {
+          timeoutId = window.setTimeout(() => {
+            if (isMounted) setStage('DOCKER_OUTPUT');
+          }, 220);
+        }
+      };
+
+      timeoutId = window.setTimeout(typeDocker, 200);
+    }
+
+    // Sequence 6: Rapid Docker output stream
     else if (stage === 'DOCKER_OUTPUT') {
       let currentLog = 0;
 
@@ -86,8 +161,8 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
 
         if (currentLog < DOCKER_LOGS.length) {
           currentLog++;
-          setVisibleLogsCount(currentLog);
-          timeoutId = window.setTimeout(streamNextLog, 120);
+          setVisibleDockerLogsCount(currentLog);
+          timeoutId = window.setTimeout(streamNextLog, 100);
         } else {
           timeoutId = window.setTimeout(() => {
             if (isMounted) setStage('CONTAINER_READY');
@@ -98,7 +173,7 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
       timeoutId = window.setTimeout(streamNextLog, 100);
     }
 
-    // Stage 4: Dev container attached & ready
+    // Sequence 7: Dev container ready
     else if (stage === 'CONTAINER_READY') {
       timeoutId = window.setTimeout(() => {
         if (isMounted) setStage('TYPE_SUMMARY');
@@ -109,19 +184,32 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
       isMounted = false;
       if (timeoutId) window.clearTimeout(timeoutId);
     };
-  }, [stage, commandText, sessionKey]);
+  }, [stage, worktreeCommand, cdCommand, dockerCommand, sessionKey]);
 
-  // Host prompt: nicholas-beighley@workstation:~$
-  const hostPrompt = (
+  // Initial prompt in portfolio root
+  const initialPrompt = (
     <span className="inline-block whitespace-nowrap">
       <span className="text-[#38e54d] font-bold">{personalInfo.terminalUser}@{personalInfo.terminalHost}</span>
       <span className="text-slate-400">:</span>
-      <span className="text-[#38bdf8] font-bold">~</span>
+      <span className="text-[#38bdf8] font-bold">~/portfolio</span>
       <span className="text-slate-300 mr-2">$</span>
     </span>
   );
 
-  // Container prompt: root@candidate-profile:/portfolio#
+  // Prompt inside git working tree
+  const worktreePrompt = (
+    <span className="inline-block whitespace-nowrap">
+      <span className="text-[#38e54d] font-bold">{personalInfo.terminalUser}@{personalInfo.terminalHost}</span>
+      <span className="text-slate-400">:</span>
+      <span className="text-[#38bdf8] font-bold">~/feature-say-hello</span>
+      <span className="text-fuchsia-400 text-xs font-mono mx-1 flex-inline items-center">
+        (feature/add-say-hello)
+      </span>
+      <span className="text-slate-300 mr-2">$</span>
+    </span>
+  );
+
+  // Container prompt inside dev container
   const containerPrompt = (
     <span className="inline-block whitespace-nowrap">
       <span className="text-[#38e54d] font-bold">{personalInfo.containerUser}</span>
@@ -131,7 +219,16 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
     </span>
   );
 
+  const isPastCd = stage !== 'TYPE_WORKTREE' && stage !== 'WORKTREE_OUTPUT' && stage !== 'TYPE_CD';
   const isInContainer = stage === 'CONTAINER_READY' || stage === 'TYPE_SUMMARY';
+
+  // Dynamic tab label
+  let activeTabTitle = `${personalInfo.terminalUser}@${personalInfo.terminalHost}: ~/portfolio`;
+  if (isInContainer) {
+    activeTabTitle = `[Dev Container] candidate-profile: /portfolio`;
+  } else if (isPastCd) {
+    activeTabTitle = `${personalInfo.terminalUser}@${personalInfo.terminalHost}: ~/feature-say-hello`;
+  }
 
   return (
     <div
@@ -152,17 +249,17 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
             <ChevronDown className="w-3 h-3 text-slate-400" />
           </button>
 
-          {/* Active Tab (Switches dynamically when dev container starts) */}
+          {/* Active Tab */}
           <div className="flex items-center space-x-2 px-3 py-1 rounded bg-[#101114] border border-[#33353e] text-slate-200 text-xs font-mono shadow-sm">
             {isInContainer ? (
               <Box className="w-3.5 h-3.5 text-cyan-400 animate-pulse flex-shrink-0" />
+            ) : isPastCd ? (
+              <GitBranch className="w-3.5 h-3.5 text-fuchsia-400 flex-shrink-0" />
             ) : (
               <Terminal className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
             )}
             <span className="truncate max-w-[170px] sm:max-w-[280px]">
-              {isInContainer
-                ? `[Dev Container] candidate-profile: /portfolio`
-                : `${personalInfo.terminalUser}@${personalInfo.terminalHost}: ~`}
+              {activeTabTitle}
             </span>
             <button
               type="button"
@@ -251,16 +348,29 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
 
       {/* Terminal Screen Body with Zero-Layout-Shift Grid Overlay */}
       <div className="p-5 md:p-6 bg-[#0c0d12]/95 relative grid grid-cols-1">
-        {/* Phantom Layer: Establishes exact responsive height for the completed session across all screen sizes */}
+        {/* Phantom Layer: Establishes exact responsive height for the completed multi-step session */}
         <div
           className="col-start-1 row-start-1 font-mono text-sm md:text-base leading-relaxed invisible select-none pointer-events-none break-words space-y-2"
           aria-hidden="true"
         >
           <div>
-            <span className="mr-2">{hostPrompt}</span>
-            <span>{commandText}</span>
+            <span className="mr-2">{initialPrompt}</span>
+            <span>{worktreeCommand}</span>
           </div>
-          <div className="space-y-0.5 text-xs sm:text-sm pl-2 border-l border-cyan-500/20 my-1">
+          <div className="space-y-0.5 text-xs sm:text-sm text-slate-400 pl-2 border-l border-slate-700/60 my-0.5">
+            {WORKTREE_LOGS.map((line, i) => (
+              <div key={i}>{line}</div>
+            ))}
+          </div>
+          <div>
+            <span className="mr-2">{initialPrompt}</span>
+            <span>{cdCommand}</span>
+          </div>
+          <div>
+            <span className="mr-2">{worktreePrompt}</span>
+            <span>{dockerCommand}</span>
+          </div>
+          <div className="space-y-0.5 text-xs sm:text-sm pl-2 border-l border-cyan-500/30 my-1">
             {DOCKER_LOGS.map((log, i) => (
               <div key={i}>{log.text}</div>
             ))}
@@ -276,21 +386,56 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
           key={sessionKey}
           className="col-start-1 row-start-1 font-mono text-sm md:text-base leading-relaxed space-y-2"
         >
-          {/* Step 1: Workstation Host Prompt & Command */}
+          {/* Step 1: Workstation git worktree command */}
           <div>
             <span className="inline-block whitespace-nowrap mr-2 select-none">
-              {hostPrompt}
+              {initialPrompt}
             </span>
-            <span className="text-slate-200">{typedCommand}</span>
-            {stage === 'TYPE_COMMAND' && (
+            <span className="text-slate-200">{typedWorktree}</span>
+            {stage === 'TYPE_WORKTREE' && (
               <span className="animate-pulse inline-block w-2 h-4 bg-cyan-400 ml-0.5 align-middle" />
             )}
           </div>
 
-          {/* Step 2: Docker Pull & Container Boot Output Logs */}
-          {visibleLogsCount > 0 && (
+          {/* Step 2: Git worktree output */}
+          {showWorktreeOutput && (
+            <div className="space-y-0.5 text-xs sm:text-sm text-slate-400 pl-2 border-l border-slate-700/60 my-0.5">
+              {WORKTREE_LOGS.map((line, idx) => (
+                <div key={idx}>{line}</div>
+              ))}
+            </div>
+          )}
+
+          {/* Step 3: cd command into working tree */}
+          {showWorktreeOutput && (
+            <div>
+              <span className="inline-block whitespace-nowrap mr-2 select-none">
+                {initialPrompt}
+              </span>
+              <span className="text-slate-200">{typedCd}</span>
+              {stage === 'TYPE_CD' && (
+                <span className="animate-pulse inline-block w-2 h-4 bg-cyan-400 ml-0.5 align-middle" />
+              )}
+            </div>
+          )}
+
+          {/* Step 4: Docker command in working tree */}
+          {isPastCd && (
+            <div>
+              <span className="inline-block whitespace-nowrap mr-2 select-none">
+                {worktreePrompt}
+              </span>
+              <span className="text-slate-200">{typedDocker}</span>
+              {stage === 'TYPE_DOCKER' && (
+                <span className="animate-pulse inline-block w-2 h-4 bg-cyan-400 ml-0.5 align-middle" />
+              )}
+            </div>
+          )}
+
+          {/* Step 5: Docker Pull & Container Boot Output Logs */}
+          {visibleDockerLogsCount > 0 && (
             <div className="space-y-0.5 text-xs sm:text-sm pl-2 border-l border-cyan-500/30 my-1 bg-black/30 py-1.5 rounded-r">
-              {DOCKER_LOGS.slice(0, visibleLogsCount).map((log, idx) => (
+              {DOCKER_LOGS.slice(0, visibleDockerLogsCount).map((log, idx) => (
                 <div key={idx} className={`${log.color} font-mono tracking-wide`}>
                   {log.text}
                 </div>
@@ -298,7 +443,7 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
             </div>
           )}
 
-          {/* Step 3 & 4: Dev Container Interactive Shell & Professional Summary Typewriter */}
+          {/* Step 6: Dev Container Interactive Shell & Professional Summary Typewriter */}
           {isInContainer && (
             <div className="pt-1">
               <TypewriterText
