@@ -1,4 +1,4 @@
-# Cyberpunk Developer Portfolio
+# Nicholas Beighley Portfolio
 
 A responsive, high-performance developer portfolio built with React 18, TypeScript, Tailwind CSS, and Vite, featuring a futuristic cyberpunk aesthetic with CRT scanlines, neon glows, interactive terminal views, and animated system telemetry.
 
