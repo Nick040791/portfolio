@@ -30,7 +30,7 @@ portfolio/
 │       ├── Navbar.tsx           # Fixed glassmorphic navigation header
 │       ├── Hero.tsx             # Hero section with interactive terminal & badge links
 │       ├── TypewriterText.tsx   # Simulated terminal typewriter effect
-│       ├── Journey.tsx          # Career timeline with glowing milestone nodes
+│       ├── Journey.tsx          # Scroll-driven career path with revealed milestone cards
 │       ├── Projects.tsx         # Featured project module container
 │       ├── ProjectCard.tsx      # Cyberpunk project card with tech stack tags
 │       ├── Credentials.tsx      # Interactive Data Core certificate sector browser
