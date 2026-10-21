@@ -354,7 +354,7 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
           aria-hidden="true"
         >
           <div>
-            <span className="mr-2">{initialPrompt}</span>
+            <span className="inline-block whitespace-nowrap mr-2">{initialPrompt}</span>
             <span>{worktreeCommand}</span>
           </div>
           <div className="space-y-0.5 text-xs sm:text-sm text-slate-400 pl-2 border-l border-slate-700/60 my-0.5">
@@ -363,22 +363,30 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
             ))}
           </div>
           <div>
-            <span className="mr-2">{initialPrompt}</span>
+            <span className="inline-block whitespace-nowrap mr-2">{initialPrompt}</span>
             <span>{cdCommand}</span>
           </div>
           <div>
-            <span className="mr-2">{worktreePrompt}</span>
+            <span className="inline-block whitespace-nowrap mr-2">{worktreePrompt}</span>
             <span>{dockerCommand}</span>
           </div>
-          <div className="space-y-0.5 text-xs sm:text-sm pl-2 border-l border-cyan-500/30 my-1">
+          <div className="space-y-0.5 text-xs sm:text-sm pl-2 border-l border-cyan-500/30 my-1 py-1.5">
             {DOCKER_LOGS.map((log, i) => (
               <div key={i}>{log.text}</div>
             ))}
           </div>
           <div className="pt-1">
-            <span className="mr-2">{containerPrompt}</span>
-            <span>{personalInfo.introBio}</span>
+            <span className="inline-block whitespace-nowrap mr-2">{containerPrompt}</span>
+            {personalInfo.introBio.split(' ').map((word, idx) => (
+              <React.Fragment key={idx}>
+                <span className="inline-block whitespace-nowrap">{word}</span>
+                <span> </span>
+              </React.Fragment>
+            ))}
+            <span className="inline-block w-2 h-4 ml-1 align-middle" />
           </div>
+          {/* Sizing Buffer: Ensures terminal box is slightly larger to completely eliminate layout shifts */}
+          <div className="h-6 sm:h-8" aria-hidden="true" />
         </div>
 
         {/* Active Animated Layer */}
