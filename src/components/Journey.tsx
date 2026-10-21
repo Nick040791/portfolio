@@ -1,136 +1,291 @@
 import React, { useState } from 'react';
-import { Network, ChevronRight, Activity, Sparkles } from 'lucide-react';
+import {
+  GitBranch,
+  GitCommit,
+  Minus,
+  Square,
+  X,
+  Menu,
+  Clock,
+  User,
+  Tag,
+  CheckCircle2,
+  FolderTree,
+} from 'lucide-react';
 import { journeyData } from '../data/portfolioData';
 import { getColorScheme } from '../utils/theme';
 
 export const Journey: React.FC = () => {
-  const [selectedPhase, setSelectedPhase] = useState<number | null>(null);
-
-  const handleTogglePhase = (index: number) => {
-    setSelectedPhase((prev) => (prev === index ? null : index));
-  };
+  const [activeCommitIndex, setActiveCommitIndex] = useState(0);
+  const activePhase = journeyData[activeCommitIndex];
+  const activeScheme = getColorScheme(activePhase.color);
 
   return (
-    <section id="journey" className="relative z-10">
-      {/* Section Header with Live Telemetry Pill */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-12">
-        <div className="flex items-center space-x-4">
-          <Network className="w-8 h-8 text-fuchsia-500 animate-pulse" />
-          <h2 className="text-3xl font-bold font-mono tracking-widest uppercase">
-            System_Trace<span className="text-fuchsia-500">::Journey</span>
+    <section id="journey" className="relative z-10 space-y-6">
+      {/* Section Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-center space-x-3">
+          <GitBranch className="w-7 h-7 text-fuchsia-400" />
+          <h2 className="text-2xl sm:text-3xl font-bold font-mono tracking-wider uppercase text-white">
+            System_Trace<span className="text-fuchsia-400">::Git_Graph</span>
           </h2>
         </div>
 
         {/* Telemetry Indicator */}
-        <div className="flex items-center space-x-2 px-3 py-1.5 glass-panel rounded-full border border-cyan-500/30 text-xs font-mono self-start sm:self-auto">
-          <Activity className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-          <span className="text-slate-400">EPOCH_TRACE:</span>
-          <span className="text-cyan-400 font-semibold">2005 ➔ PRESENT</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping ml-1" />
+        <div className="flex items-center space-x-2 px-3 py-1 glass-panel rounded-md border border-cyan-500/20 text-xs font-mono self-start sm:self-auto">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-slate-400">TREE:</span>
+          <span className="text-cyan-400 font-semibold">main (4 commits logged)</span>
         </div>
       </div>
 
-      {/* Timeline Circuit Container */}
-      <div className="relative border-l-2 border-dashed border-slate-700/80 ml-4 md:ml-8 space-y-12 pb-8">
-        {/* Traveling Fiber-Optic Circuit Pulse (continuous ambient signal beam) */}
-        <div
-          className="absolute -left-[3px] w-[5px] h-28 rounded-full bg-gradient-to-b from-transparent via-cyan-400 to-transparent blur-[1px] shadow-[0_0_14px_#22d3ee] pointer-events-none animate-circuit-pulse"
-          aria-hidden="true"
-        />
+      {/* Ubuntu Linux Git Graph / System Trace Window */}
+      <div className="glass-panel rounded-lg overflow-hidden border border-cyan-500/30 shadow-[0_0_35px_rgba(34,211,238,0.12)]">
+        {/* Ubuntu GNOME Window Titlebar */}
+        <div className="bg-[#1e1e22] border-b border-[#2d2f36] px-3 py-2 flex items-center justify-between select-none">
+          {/* Left Title / Breadcrumbs */}
+          <div className="flex items-center space-x-2">
+            <span className="px-1.5 py-0.5 rounded bg-[#2a2b30] text-fuchsia-400 font-mono text-xs flex items-center gap-1 font-semibold">
+              <GitBranch className="w-3 h-3" />
+              git-graph
+            </span>
+            <span className="font-mono text-xs text-slate-300 font-medium hidden sm:inline">
+              nicholas-beighley/career-trace.git — [branch: main]
+            </span>
+          </div>
 
-        {journeyData.map((item, index) => {
-          const scheme = getColorScheme(item.color);
-          const isSelected = selectedPhase === index;
+          {/* Right Window Controls (Ubuntu GNOME) */}
+          <div className="flex items-center space-x-2.5 text-slate-400">
+            <button
+              type="button"
+              className="p-1 hover:text-slate-200 hover:bg-[#2b2c32] rounded transition-colors"
+              title="Menu"
+              aria-label="Menu"
+            >
+              <Menu className="w-3.5 h-3.5" />
+            </button>
+            <span className="h-3.5 w-[1px] bg-slate-700/60" aria-hidden="true" />
+            <button
+              type="button"
+              className="p-1 hover:text-slate-200 hover:bg-[#2b2c32] rounded transition-colors"
+              title="Minimize"
+              aria-label="Minimize"
+            >
+              <Minus className="w-3.5 h-3.5" />
+            </button>
+            <button
+              type="button"
+              className="p-1 hover:text-slate-200 hover:bg-[#2b2c32] rounded transition-colors"
+              title="Maximize"
+              aria-label="Maximize"
+            >
+              <Square className="w-3 h-3" />
+            </button>
+            <button
+              type="button"
+              className="p-1 text-slate-400 hover:text-white hover:bg-red-600/90 rounded-full transition-colors"
+              title="Close"
+              aria-label="Close"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
 
-          return (
-            <div key={index} className="relative pl-10 md:pl-16 group">
-              {/* Glowing Circuit Node (clickable button) */}
-              <button
-                type="button"
-                onClick={() => handleTogglePhase(index)}
-                className={`absolute -left-[21px] top-1 p-2 rounded-full bg-[#050505] border-2 cursor-pointer ${
-                  scheme.nodeBorder
-                } transition-all duration-300 ${
-                  isSelected ? 'scale-110 shadow-[0_0_22px_currentColor]' : 'group-hover:scale-110'
-                }`}
-                title={`Inspect ${item.phase}`}
-                aria-label={`Inspect ${item.phase}`}
-              >
-                {/* Active Thread Radar Pulse on Current Phase */}
-                {item.isCurrent && (
-                  <span
-                    className="absolute -inset-1 rounded-full border border-cyan-400/60 animate-ping pointer-events-none"
-                    aria-hidden="true"
-                  />
-                )}
-                {item.icon}
-              </button>
+        {/* Command Toolbar / Subheader */}
+        <div className="bg-[#141519] border-b border-[#25272e] px-4 py-2 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+          <div className="flex items-center space-x-3 text-slate-400">
+            <span className="text-lime-400 font-semibold">$</span>
+            <span className="text-slate-300">git log --graph --decorate --all --date=relative</span>
+          </div>
+          <div className="flex items-center space-x-3 text-slate-500">
+            <span>HEAD: <span className="text-cyan-400 font-semibold">a4f8e91</span></span>
+            <span>•</span>
+            <span className="text-emerald-400">Verified GPG Commits</span>
+          </div>
+        </div>
 
-              {/* Milestone Narrative Card (interactive only inside the card boundaries) */}
-              <div
-                onClick={() => handleTogglePhase(index)}
-                className={`glass-panel p-6 rounded-lg border-l-4 ${scheme.border} cursor-pointer transition-all duration-300 ${
-                  isSelected
-                    ? `bg-white/10 ${scheme.glowShadow} translate-x-1.5 border-l-[6px]`
-                    : `hover:bg-white/10 hover:translate-x-1.5 hover:border-l-[6px] hover:${scheme.glowShadow}`
-                }`}
-              >
-                {/* Card Header & Status Badges */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                  <div className="flex items-center space-x-2">
-                    <h3
-                      className={`text-xl font-bold text-white transition-colors ${
-                        isSelected ? scheme.text : scheme.hoverText
-                      }`}
-                    >
-                      {item.phase}
-                    </h3>
-                  </div>
+        {/* Split Workbench Content: Left Graph Tree + Right Commit Inspector */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[460px] bg-[#0c0d12]/95">
+          {/* Left Column: Git Commit Graph & List */}
+          <div className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-[#25272e] p-3 sm:p-4 space-y-2 font-mono">
+            <div className="px-2 py-1 text-[11px] uppercase tracking-wider text-slate-500 flex items-center justify-between border-b border-white/5 pb-2">
+              <span className="flex items-center gap-1.5">
+                <FolderTree className="w-3 h-3 text-slate-400" />
+                Commit History & Merges
+              </span>
+              <span>4 Commits</span>
+            </div>
 
-                  <div className="flex items-center space-x-2 self-start sm:self-auto">
-                    {/* Active Thread Beacon for Current Phase */}
-                    {item.isCurrent && (
-                      <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        THREAD_ACTIVE
-                      </span>
+            <div className="space-y-1.5 pt-1">
+              {journeyData.map((phase, idx) => {
+                const isSelected = activeCommitIndex === idx;
+                const scheme = getColorScheme(phase.color);
+
+                return (
+                  <div
+                    key={idx}
+                    onClick={() => setActiveCommitIndex(idx)}
+                    className={`relative p-3 rounded-md cursor-pointer transition-all duration-200 border text-left ${
+                      isSelected
+                        ? `bg-[#181d24] ${scheme.borderSubtle} shadow-[0_0_15px_rgba(0,0,0,0.5)]`
+                        : 'border-transparent hover:bg-white/5 hover:border-white/5'
+                    }`}
+                  >
+                    {/* Active Commit Indicator Line */}
+                    {isSelected && (
+                      <div
+                        className={`absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r bg-cyan-400 shadow-[0_0_8px_#22d3ee]`}
+                      />
                     )}
 
-                    {/* Milestone Date Badge */}
-                    <span
-                      className={`font-mono text-sm ${scheme.text} px-3 py-1 rounded-full ${scheme.bgSubtle} border ${scheme.borderSubtle}`}
+                    <div className="flex items-center justify-between text-xs mb-1">
+                      <div className="flex items-center space-x-1.5">
+                        <GitCommit
+                          className={`w-3.5 h-3.5 ${
+                            isSelected ? scheme.text : 'text-slate-500'
+                          }`}
+                        />
+                        <span className="font-bold text-slate-300">
+                          {phase.commitHash}
+                        </span>
+                        {phase.tag && (
+                          <span className="px-1.5 py-0.2 rounded text-[10px] bg-slate-800 text-slate-400 border border-slate-700">
+                            {phase.tag}
+                          </span>
+                        )}
+                      </div>
+                      <span className={`text-[11px] ${scheme.text} font-semibold`}>
+                        {phase.date}
+                      </span>
+                    </div>
+
+                    <div
+                      className={`text-sm font-sans font-semibold line-clamp-1 ${
+                        isSelected ? 'text-white' : 'text-slate-400'
+                      }`}
                     >
-                      {item.date}
+                      {phase.phase}
+                    </div>
+
+                    <div className="flex items-center space-x-2 text-[11px] text-slate-500 mt-1 font-mono">
+                      <span>branch: <span className="text-slate-400">{phase.branch}</span></span>
+                      {phase.isCurrent && (
+                        <span className="text-emerald-400 font-semibold flex items-center gap-1">
+                          ● HEAD
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Right Column: Commit Inspector & Changelog Detail */}
+          <div className="lg:col-span-7 p-4 sm:p-6 flex flex-col justify-between font-mono">
+            <div className="space-y-5">
+              {/* Commit Header Metadata Block */}
+              <div className="bg-[#12141a] p-4 rounded-md border border-white/5 space-y-2 text-xs">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-2">
+                  <div className="text-slate-400">
+                    commit <span className="text-cyan-400 font-bold">{activePhase.commitHash}</span>{' '}
+                    <span className="text-slate-500">
+                      ({activePhase.isCurrent ? 'HEAD -> ' : ''}
+                      {activePhase.branch}, tag: {activePhase.tag})
                     </span>
                   </div>
+                  {activePhase.isCurrent ? (
+                    <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-semibold flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      ACTIVE_EXECUTION
+                    </span>
+                  ) : (
+                    <span className="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-400 border border-slate-700 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                      VERIFIED_MILESTONE
+                    </span>
+                  )}
                 </div>
 
-                {/* Telemetry Domain Tag */}
-                {item.telemetryTag && (
-                  <div className="flex items-center space-x-1.5 text-xs font-mono text-slate-500 mb-4 uppercase tracking-wider">
-                    <Sparkles className={`w-3.5 h-3.5 ${scheme.text} flex-shrink-0`} />
-                    <span>{item.telemetryTag}</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-400 text-xs">
+                  <div className="flex items-center space-x-1.5">
+                    <User className="w-3.5 h-3.5 text-slate-500" />
+                    <span>Author: <span className="text-slate-200">Nicholas Beighley</span></span>
                   </div>
-                )}
-
-                {/* Milestone Detail Bullet Points */}
-                <ul className="space-y-3">
-                  {item.details.map((detail, idx) => (
-                    <li
-                      key={idx}
-                      className="flex items-start space-x-3 text-slate-300 group-hover:text-slate-200 transition-colors"
-                    >
-                      <ChevronRight
-                        className={`w-5 h-5 mt-0.5 ${scheme.text} flex-shrink-0 transition-transform duration-300 group-hover:translate-x-1`}
-                      />
-                      <span className="leading-relaxed text-sm md:text-base">{detail}</span>
-                    </li>
-                  ))}
-                </ul>
+                  <div className="flex items-center space-x-1.5">
+                    <Clock className="w-3.5 h-3.5 text-slate-500" />
+                    <span>Timeline: <span className="text-slate-200">{activePhase.date}</span></span>
+                  </div>
+                  <div className="flex items-center space-x-1.5 sm:col-span-2">
+                    <Tag className="w-3.5 h-3.5 text-slate-500" />
+                    <span>Scope: <span className={activeScheme.text}>{activePhase.scope}</span></span>
+                  </div>
+                </div>
               </div>
+
+              {/* Commit Message & Narrative */}
+              <div>
+                <div className="text-xs uppercase text-slate-500 font-semibold tracking-wider mb-2">
+                  /// Commit Message
+                </div>
+                <h3 className="text-base sm:text-lg font-bold text-white font-sans">
+                  {activePhase.phase}
+                </h3>
+              </div>
+
+              {/* Changelog Additions (+ changes) */}
+              <div className="space-y-2">
+                <div className="text-xs uppercase text-slate-500 font-semibold tracking-wider">
+                  /// Verified Changes & Impact (+ additions)
+                </div>
+                <div className="bg-[#0f1116] p-3.5 rounded-md border border-white/5 space-y-2.5">
+                  {activePhase.details.map((detail, dIdx) => (
+                    <div key={dIdx} className="flex items-start space-x-2 text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+                      <span className="text-emerald-400 font-mono font-bold select-none pt-0.5">+</span>
+                      <span>{detail}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Verified Tech Stack Chips */}
+              {activePhase.tech && (
+                <div className="space-y-2">
+                  <div className="text-xs uppercase text-slate-500 font-semibold tracking-wider">
+                    /// Built & Deployed Technologies
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {activePhase.tech.map((t, tIdx) => (
+                      <span
+                        key={tIdx}
+                        className={`text-xs px-2.5 py-1 rounded bg-[#16181f] border ${activeScheme.borderSubtle} ${activeScheme.text}`}
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-          );
-        })}
+          </div>
+        </div>
+
+        {/* Ubuntu Application Status Bar */}
+        <div className="bg-[#111215] border-t border-[#222328] px-4 py-1.5 flex flex-wrap items-center justify-between text-[11px] font-mono text-slate-500 gap-2 select-none">
+          <div className="flex items-center space-x-3">
+            <span className="text-emerald-400 font-semibold">● 100% HEALTH</span>
+            <span>|</span>
+            <span>Commit {activeCommitIndex + 1} of {journeyData.length}</span>
+            <span>|</span>
+            <span>UTF-8</span>
+          </div>
+          <div className="flex items-center space-x-3">
+            <span>git:main</span>
+            <span>|</span>
+            <span>Ubuntu 24.04 LTS (x86_64)</span>
+          </div>
+        </div>
       </div>
     </section>
   );

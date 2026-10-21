@@ -10,6 +10,11 @@ export interface JourneyItem {
   details: string[];
   telemetryTag?: string;
   isCurrent?: boolean;
+  commitHash?: string;
+  branch?: string;
+  tag?: string;
+  scope?: string;
+  tech?: string[];
 }
 
 export interface ProjectItem {

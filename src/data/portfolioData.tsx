@@ -41,7 +41,12 @@ export const journeyData: JourneyItem[] = [
     color: "cyan",
     icon: <Cpu className="w-5 h-5 text-cyan-400" />,
     telemetryTag: "AGENTIC_AI // MULTI_AGENT_ORCHESTRATION",
+    commitHash: "a4f8e91",
+    branch: "main",
+    tag: "v4.0.0-agentic",
+    scope: "Agentic AI & Non-Profit Infrastructure",
     isCurrent: true,
+    tech: ["Multi-Agent Orchestration", "MCP Servers", "Eval-Gated CI/CD", "Local AI Inference", "Python"],
     details: [
       "Completed Hire-Human Agentic Engineer cohort, mastering multi-agent orchestration, MCP servers, and eval-gated CI/CD pipelines.",
       "Founded KC Optimal Computing LLC, deploying open-source AI to eliminate SaaS costs for local nonprofits."
@@ -53,6 +58,11 @@ export const journeyData: JourneyItem[] = [
     color: "magenta",
     icon: <Server className="w-5 h-5 text-fuchsia-400" />,
     telemetryTag: "ENTERPRISE // FULL_STACK_JAVA_SPRING",
+    commitHash: "7c28d15",
+    branch: "release/v3.0",
+    tag: "v3.0.0-launchcode",
+    scope: "Full-Stack Software Development",
+    tech: ["Java", "Spring Boot", "MySQL", "C# .NET", "Agile", "Business Intelligence"],
     details: [
       "Graduated LaunchCode FlexPath Full-Stack Software Development cohort (Java, Spring Boot, MySQL, Agile).",
       "Earned Foundational C# with Microsoft Developer Certification (Object-oriented .NET console apps).",
@@ -65,6 +75,11 @@ export const journeyData: JourneyItem[] = [
     color: "lime",
     icon: <Code className="w-5 h-5 text-lime-400" />,
     telemetryTag: "CORE_CS // ALGORITHMS_SYSTEMS",
+    commitHash: "e9102ab",
+    branch: "feature/curriculum",
+    tag: "v2.0.0-foundation",
+    scope: "Computer Science & Systems Fundamentals",
+    tech: ["Python", "JavaScript", "Linux CLI", "Networking", "Data Structures", "Algorithms"],
     details: [
       "Mastered algorithms/data structures via freeCodeCamp's Python & JavaScript certifications.",
       "Solidified Linux CLI, networking protocols, and systems infrastructure via Google IT Support Professional Certificate.",
@@ -77,6 +92,11 @@ export const journeyData: JourneyItem[] = [
     color: "cyan",
     icon: <MonitorPlay className="w-5 h-5 text-cyan-400" />,
     telemetryTag: "HARDWARE_ROOTS // ROOT_CAUSE_DIAGNOSTICS",
+    commitHash: "0128cf3",
+    branch: "init/hardware-bedrock",
+    tag: "v1.0.0-init",
+    scope: "Systems Diagnostics & Infrastructure",
+    tech: ["PC Hardware Assembly", "System Diagnostics", "Root-Cause Analysis", "Offline APIs", "Linux Admin"],
     details: [
       "Served as IT Supervisor at Elevate Missouri, conducting root-cause analysis on multi-site hardware incidents.",
       "Designed offline-capable timekeeping APIs, saving 2.5 hours of weekly administrative overhead.",
