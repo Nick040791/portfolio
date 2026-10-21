@@ -47,14 +47,7 @@ export const Journey: React.FC = () => {
     });
   }, []);
 
-  const progress =
-    journeyData.length > 1
-      ? (activeIndex / (journeyData.length - 1)) * 100
-      : 100;
-
-  const scrollToIndex = (idx: number) => {
-    cardRefs.current[idx]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  };
+  // (step rail removed for a cleaner, centered flow)
 
   return (
     <section id="journey" className="relative z-10 space-y-6">
@@ -76,77 +69,7 @@ export const Journey: React.FC = () => {
       </div>
 
       <div className="glass-panel rounded-lg overflow-hidden border border-cyan-500/30 shadow-[0_0_35px_rgba(34,211,238,0.12)] p-6 sm:p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <aside className="lg:col-span-4">
-            <div className="relative pl-6 lg:sticky lg:top-24">
-              <div className="absolute left-2 top-2 bottom-2 w-0.5 bg-white/10 rounded-full overflow-hidden">
-                <div
-                  className="absolute left-0 top-0 w-full bg-gradient-to-b from-cyan-400 via-fuchsia-400 to-lime-400 transition-all duration-700 ease-out rounded-full"
-                  style={{ height: `${progress}%` }}
-                />
-              </div>
-
-              <ol className="space-y-6">
-                {journeyData.map((phase, idx) => {
-                  const scheme = getColorScheme(phase.color);
-                  const isActive = idx === activeIndex;
-                  const isPast = idx < activeIndex;
-                  const phaseParts = phase.phase.includes(':')
-                    ? {
-                        prefix: phase.phase.split(':')[0].trim(),
-                        title: phase.phase.split(':').slice(1).join(':').trim(),
-                      }
-                    : { prefix: 'Phase', title: phase.phase };
-
-                  return (
-                    <li key={idx} className="relative">
-                      <button
-                        type="button"
-                        onClick={() => scrollToIndex(idx)}
-                        className="flex items-start gap-3 text-left group w-full"
-                        aria-label={`Go to milestone ${idx + 1}: ${phase.phase}`}
-                      >
-                        <span
-                          className={`absolute -left-6 top-1.5 w-4 h-4 rounded-full border-2 transition-all duration-300 ${
-                            isActive
-                              ? `${scheme.nodeBorder} scale-110`
-                              : isPast
-                              ? 'border-cyan-500/60 bg-cyan-500/20'
-                              : 'border-white/20 bg-black/40 group-hover:border-white/40'
-                          }`}
-                        />
-                        <div
-                          className={`space-y-0.5 transition-opacity duration-300 ${
-                            isActive ? 'opacity-100' : 'opacity-60 group-hover:opacity-90'
-                          }`}
-                        >
-                          <div
-                            className={`text-[11px] font-mono uppercase tracking-wider ${
-                              isActive ? scheme.text : 'text-slate-500'
-                            }`}
-                          >
-                            Step {String(idx + 1).padStart(2, '0')} · {phaseParts.prefix}
-                          </div>
-                          <div
-                            className={`text-sm font-sans font-semibold leading-snug ${
-                              isActive ? 'text-white' : 'text-slate-300'
-                            }`}
-                          >
-                            {phaseParts.title}
-                          </div>
-                          <div className="text-[11px] font-mono text-slate-500">
-                            {phase.date}
-                          </div>
-                        </div>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ol>
-            </div>
-          </aside>
-
-          <div className="lg:col-span-8 space-y-6">
+        <div className="max-w-3xl mx-auto space-y-6">
             {journeyData.map((phase, idx) => {
               const scheme = getColorScheme(phase.color);
               const isActive = idx === activeIndex;
@@ -276,7 +199,6 @@ export const Journey: React.FC = () => {
               );
             })}
           </div>
-        </div>
       </div>
     </section>
   );
