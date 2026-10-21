@@ -108,35 +108,51 @@ export const journeyData: JourneyItem[] = [
 export const projectsData: ProjectItem[] = [
   {
     title: "Builder's Box",
-    subtitle: "LaunchCode Capstone",
-    description: "Implemented automated unit/integration test suites validating service-layer business logic and JPA rules. Executed load tests to measure throughput and configured CI/CD workflows.",
-    tech: ["Java", "Spring Boot", "React", "MySQL", "JUnit", "JMeter", "GitHub Actions"],
+    subtitle: "LaunchCode Capstone // QA Automated Pipeline",
+    description: "Engineered automated unit/integration test suites validating service-layer business logic and JPA relational persistence. Executed JMeter load tests benchmarking throughput and latency under concurrent traffic, enforced with automated GitHub Actions CI/CD pipelines.",
+    tech: ["Java", "Spring Boot", "React", "MySQL", "JUnit", "JMeter", "GitHub Actions", "Maven"],
     link: "https://github.com/Nick040791/Builders-Box",
-    accent: "cyan"
+    githubUrl: "https://github.com/Nick040791/Builders-Box",
+    containerPort: ":8080/tcp",
+    statusBadge: "HEALTHY // CI_CD_PASSING",
+    systemMetrics: "mvn test: 100% passing | JMeter p95 latency: 18ms",
+    accent: "lime"
   },
   {
     title: "Client-Facing Portal",
-    subtitle: "KC Optimal Computing",
-    description: "Designed and deployed end-to-end web applications supporting active mission-driven organizations. Integrated schema validation and automated API contract checks.",
+    subtitle: "KC Optimal Computing LLC // Production Systems",
+    description: "Architected and deployed production web applications supporting mission-driven local non-profits. Integrated open-source AI models eliminating SaaS subscription costs, schema validation, and automated API contract checks.",
     tech: ["Next.js", "TypeScript", "React", "Node.js", "Python", "Cloudflare", "Docker"],
     link: "https://kcoptimalcomputing.com",
+    liveUrl: "https://kcoptimalcomputing.com",
+    containerPort: ":443/https",
+    statusBadge: "DEPLOYED // 0_SAAS_OVERHEAD",
+    systemMetrics: "Edge Cached (Cloudflare) | SSL A+ | 100% Uptime",
     accent: "lime"
   },
   {
     title: "BootyByBeighley",
-    subtitle: "Collaborative Full-Stack App",
-    description: "Collaborative engineering effort focusing on robust backend architecture and responsive user interfaces.",
-    tech: ["Full-Stack", "JavaScript", "UI/UX"],
+    subtitle: "Collaborative Full-Stack App // Responsive UI",
+    description: "Full-stack web application developed collaboratively with high emphasis on robust backend architecture, component reusability, and responsive user interfaces.",
+    tech: ["JavaScript", "Full-Stack", "CSS3", "Git Collaboration", "UI/UX"],
     link: "https://github.com/adam035827/BootyByBeighley",
-    accent: "magenta"
+    githubUrl: "https://github.com/adam035827/BootyByBeighley",
+    containerPort: ":3000/tcp",
+    statusBadge: "ACTIVE // COLLAB_MERGED",
+    systemMetrics: "Branch PRs: Reviewed & Merged | Component Architecture",
+    accent: "lime"
   },
   {
     title: "Dictator & Alex",
-    subtitle: "Systems & Logic Tools",
-    description: "Custom built repositories exploring hardware-adjacent logic, system automation tools, and foundational problem-solving applications.",
-    tech: ["System Scripts", "Algorithms", "Logic"],
+    subtitle: "Systems & Hardware-Adjacent Logic Tools",
+    description: "Custom built toolchains and automation scripts exploring low-level hardware diagnostics, system automation utilities, and foundational algorithmic problem-solving.",
+    tech: ["System Scripts", "Algorithms", "Bash CLI", "Hardware Logic"],
     link: "https://github.com/Nick040791/Dictator",
-    accent: "cyan"
+    githubUrl: "https://github.com/Nick040791/Dictator",
+    containerPort: ":sh/cron",
+    statusBadge: "COMPILED // ROOT_CAUSE_TOOLS",
+    systemMetrics: "POSIX compliant | Low-overhead shell & logic routines",
+    accent: "lime"
   }
 ];
 

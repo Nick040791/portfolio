@@ -23,7 +23,12 @@ export interface ProjectItem {
   description: string;
   tech: string[];
   link: string;
-  accent: AccentColor;
+  accent?: AccentColor | string;
+  githubUrl?: string;
+  liveUrl?: string;
+  containerPort?: string;
+  statusBadge?: string;
+  systemMetrics?: string;
 }
 
 export interface Certificate {
