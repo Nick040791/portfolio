@@ -44,11 +44,32 @@
     opacity: 0.1;
     animation: scan 8s linear infinite;
   }
+
+  .animate-circuit-pulse {
+    animation: circuit-pulse 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
 }
 
 @keyframes scan {
   0% { top: -100px; }
   100% { top: 100%; }
+}
+
+@keyframes circuit-pulse {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    top: 98%;
+    opacity: 0;
+  }
 }
 
 /* Custom scrollbar */

@@ -40,6 +40,8 @@ export const journeyData: JourneyItem[] = [
     date: "Present",
     color: "cyan",
     icon: <Cpu className="w-5 h-5 text-cyan-400" />,
+    telemetryTag: "AGENTIC_AI // MULTI_AGENT_ORCHESTRATION",
+    isCurrent: true,
     details: [
       "Completed Hire-Human Agentic Engineer cohort, mastering multi-agent orchestration, MCP servers, and eval-gated CI/CD pipelines.",
       "Founded KC Optimal Computing LLC, deploying open-source AI to eliminate SaaS costs for local nonprofits."
@@ -50,6 +52,7 @@ export const journeyData: JourneyItem[] = [
     date: "2026",
     color: "magenta",
     icon: <Server className="w-5 h-5 text-fuchsia-400" />,
+    telemetryTag: "ENTERPRISE // FULL_STACK_JAVA_SPRING",
     details: [
       "Graduated LaunchCode FlexPath Full-Stack Software Development cohort (Java, Spring Boot, MySQL, Agile).",
       "Earned Foundational C# with Microsoft Developer Certification (Object-oriented .NET console apps).",
@@ -61,6 +64,7 @@ export const journeyData: JourneyItem[] = [
     date: "2024 - 2025",
     color: "lime",
     icon: <Code className="w-5 h-5 text-lime-400" />,
+    telemetryTag: "CORE_CS // ALGORITHMS_SYSTEMS",
     details: [
       "Mastered algorithms/data structures via freeCodeCamp's Python & JavaScript certifications.",
       "Solidified Linux CLI, networking protocols, and systems infrastructure via Google IT Support Professional Certificate.",
@@ -72,6 +76,7 @@ export const journeyData: JourneyItem[] = [
     date: "2005 - 2020",
     color: "cyan",
     icon: <MonitorPlay className="w-5 h-5 text-cyan-400" />,
+    telemetryTag: "HARDWARE_ROOTS // ROOT_CAUSE_DIAGNOSTICS",
     details: [
       "Served as IT Supervisor at Elevate Missouri, conducting root-cause analysis on multi-site hardware incidents.",
       "Designed offline-capable timekeeping APIs, saving 2.5 hours of weekly administrative overhead.",

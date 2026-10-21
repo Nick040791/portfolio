@@ -8,6 +8,8 @@ export interface JourneyItem {
   color: AccentColor;
   icon: ReactNode;
   details: string[];
+  telemetryTag?: string;
+  isCurrent?: boolean;
 }
 
 export interface ProjectItem {
