@@ -17,7 +17,7 @@ export const personalInfo = {
   dockerCommand: "docker run -it --name candidate-profile portfolio",
   containerUser: "root@candidate-profile",
   containerMount: "/portfolio",
-  introBio: "Systems-minded engineer combining hands-on hardware integration with full-stack software development to build local AI infrastructure and community-focused tech solutions. Experienced in architecting custom workstation builds for on-premise AI inference, engineering reliable open-source platforms for non-profit partners, and volunteering technical support to eliminate infrastructure overhead.",
+  introBio: "Full-stack software engineer with an IT root-cause analysis background, experienced in engineering full-stack applications across Java, Spring Boot, SQL, and React. Bridges development and quality engineering by automating REST API test suites, benchmarking system throughput and latency, as well as leveraging AI tools to generate edge-case test coverage. LaunchCode Full-Stack graduate committed to delivering robust code and continuous system stability.",
   links: {
     github: "https://github.com/Nick040791",
     linkedin: "https://www.linkedin.com/in/nicholas-beighley-00a45a322",

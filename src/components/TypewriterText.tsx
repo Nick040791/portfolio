@@ -18,22 +18,22 @@ interface WordToken {
 
 const DEFAULT_TYPOS: TypoConfig[] = [
   {
-    triggerPrefix: 'Sys',
-    typoChars: 'tm',
-    hesitationMs: 240,
-    recoveryMs: 110,
+    triggerPrefix: 'Full-stack software eng',
+    typoChars: 'ie',
+    hesitationMs: 220,
+    recoveryMs: 100,
   },
   {
-    triggerPrefix: 'hands-on hardw',
-    typoChars: 'ra',
-    hesitationMs: 220,
+    triggerPrefix: 'benchmarking system thr',
+    typoChars: 'u',
+    hesitationMs: 240,
     recoveryMs: 90,
   },
 ];
 
 export const TypewriterText: React.FC<TypewriterTextProps> = ({
   text,
-  baseSpeed = 34,
+  baseSpeed = 24,
   className = '',
   enableRealisticTyping = true,
   typos = DEFAULT_TYPOS,
