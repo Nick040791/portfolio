@@ -31,7 +31,7 @@ export const Hero: React.FC = () => {
         <div className="flex items-start md:items-end justify-start md:justify-end flex-shrink-0 self-start md:self-end pb-1">
           <a
             href={personalInfo.resumeUrl}
-            download="Nicholas_Beighley_Resume.pdf"
+            download={personalInfo.resumeFileName}
             target="_blank"
             rel="noopener noreferrer"
             className="group relative inline-flex items-center space-x-2.5 px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg bg-gradient-to-r from-[#17212e] via-[#101923] to-[#0c1219] border border-cyan-500/40 text-cyan-300 hover:text-white hover:border-cyan-400 font-mono text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_20px_rgba(34,211,238,0.18)] hover:shadow-[0_0_30px_rgba(34,211,238,0.38)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
