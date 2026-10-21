@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail } from 'lucide-react';
+import { Mail, Flame, Rocket, GraduationCap } from 'lucide-react';
 import { UbuntuTerminal } from './UbuntuTerminal';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import { personalInfo } from '../data/portfolioData';
@@ -30,32 +30,70 @@ export const Hero: React.FC = () => {
         <UbuntuTerminal />
       </div>
 
-      {/* Action / Social Link Badges */}
-      <div className="w-full flex flex-wrap gap-4 pt-2">
+      {/* Balanced 3x2 Action / External Link Badges */}
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-2">
+        {/* 1. GitHub Access */}
         <a
           href={personalInfo.links.github}
           target="_blank"
           rel="noreferrer"
-          className="flex items-center space-x-2 px-6 py-3 glass-panel rounded-md text-cyan-400 font-mono text-sm uppercase tracking-wider neon-border-cyan transition-all duration-300 hover:scale-[1.02]"
+          className="flex items-center justify-center space-x-2 px-4 py-3 glass-panel rounded-md text-cyan-400 font-mono text-sm uppercase tracking-wider neon-border-cyan transition-all duration-300 hover:scale-[1.02]"
         >
-          <GithubIcon className="w-4 h-4" />
-          <span>GitHub_Access</span>
+          <GithubIcon className="w-4 h-4 flex-shrink-0" />
+          <span className="truncate">GitHub_Access</span>
         </a>
+
+        {/* 2. LinkedIn Node */}
         <a
           href={personalInfo.links.linkedin}
           target="_blank"
           rel="noreferrer"
-          className="flex items-center space-x-2 px-6 py-3 glass-panel rounded-md text-fuchsia-400 font-mono text-sm uppercase tracking-wider hover:border-fuchsia-500 hover:shadow-[0_0_15px_rgba(217,70,239,0.4)] transition-all duration-300 hover:scale-[1.02]"
+          className="flex items-center justify-center space-x-2 px-4 py-3 glass-panel rounded-md text-fuchsia-400 font-mono text-sm uppercase tracking-wider hover:border-fuchsia-500 hover:shadow-[0_0_15px_rgba(217,70,239,0.4)] transition-all duration-300 hover:scale-[1.02]"
         >
-          <LinkedinIcon className="w-4 h-4" />
-          <span>LinkedIn_Node</span>
+          <LinkedinIcon className="w-4 h-4 flex-shrink-0" />
+          <span className="truncate">LinkedIn_Node</span>
         </a>
+
+        {/* 3. Ping Comm (Email) */}
         <a
           href={personalInfo.links.email}
-          className="flex items-center space-x-2 px-6 py-3 glass-panel rounded-md text-lime-400 font-mono text-sm uppercase tracking-wider neon-border-lime transition-all duration-300 hover:scale-[1.02]"
+          className="flex items-center justify-center space-x-2 px-4 py-3 glass-panel rounded-md text-lime-400 font-mono text-sm uppercase tracking-wider neon-border-lime transition-all duration-300 hover:scale-[1.02]"
         >
-          <Mail className="w-4 h-4" />
-          <span>Ping_Comm</span>
+          <Mail className="w-4 h-4 flex-shrink-0" />
+          <span className="truncate">Ping_Comm</span>
+        </a>
+
+        {/* 4. freeCodeCamp Verified Profile */}
+        <a
+          href={personalInfo.links.freecodecamp}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center justify-center space-x-2 px-4 py-3 glass-panel rounded-md text-cyan-400 font-mono text-sm uppercase tracking-wider neon-border-cyan transition-all duration-300 hover:scale-[1.02]"
+        >
+          <Flame className="w-4 h-4 flex-shrink-0" />
+          <span className="truncate">FreeCodeCamp_ID</span>
+        </a>
+
+        {/* 5. LaunchCode Hub */}
+        <a
+          href={personalInfo.links.launchcode}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center justify-center space-x-2 px-4 py-3 glass-panel rounded-md text-fuchsia-400 font-mono text-sm uppercase tracking-wider hover:border-fuchsia-500 hover:shadow-[0_0_15px_rgba(217,70,239,0.4)] transition-all duration-300 hover:scale-[1.02]"
+        >
+          <Rocket className="w-4 h-4 flex-shrink-0" />
+          <span className="truncate">LaunchCode_Hub</span>
+        </a>
+
+        {/* 6. MDHEWD Portal */}
+        <a
+          href={personalInfo.links.mdhewd}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center justify-center space-x-2 px-4 py-3 glass-panel rounded-md text-lime-400 font-mono text-sm uppercase tracking-wider neon-border-lime transition-all duration-300 hover:scale-[1.02]"
+        >
+          <GraduationCap className="w-4 h-4 flex-shrink-0" />
+          <span className="truncate">MDHEWD_Portal</span>
         </a>
       </div>
     </section>

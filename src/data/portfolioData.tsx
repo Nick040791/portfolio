@@ -21,7 +21,10 @@ export const personalInfo = {
   links: {
     github: "https://github.com/Nick040791",
     linkedin: "https://www.linkedin.com/in/nicholas-beighley-00a45a322",
-    email: "mailto:Nick040791@gmail.com"
+    email: "mailto:Nick040791@gmail.com",
+    freecodecamp: "https://www.freecodecamp.org/mrnicholasb",
+    launchcode: "https://www.launchcode.org/",
+    mdhewd: "https://dhewd.mo.gov/"
   }
 };
 
