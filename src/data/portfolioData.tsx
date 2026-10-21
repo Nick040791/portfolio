@@ -29,7 +29,7 @@ export const personalInfo = {
 };
 
 export const navLinks = [
-  { label: "/JOURNEY", href: "#journey" },
+  { label: "/CAREER_PATH", href: "#journey" },
   { label: "/PROJECTS", href: "#projects" },
   { label: "/DATA_CORE", href: "#credentials" }
 ];

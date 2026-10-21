@@ -37,7 +37,7 @@ export const Journey: React.FC = () => {
         <div className="flex items-center space-x-3">
           <GitBranch className="w-7 h-7 text-fuchsia-400" />
           <h2 className="text-2xl sm:text-3xl font-bold font-mono tracking-wider uppercase text-white">
-            System_Trace<span className="text-fuchsia-400">::Git_Graph</span>
+            Career_Path<span className="text-fuchsia-400">::Timeline</span>
           </h2>
         </div>
 
@@ -45,11 +45,11 @@ export const Journey: React.FC = () => {
         <div className="flex items-center space-x-2 px-3 py-1 glass-panel rounded-md border border-cyan-500/20 text-xs font-mono self-start sm:self-auto">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-slate-400">TREE:</span>
-          <span className="text-cyan-400 font-semibold">main (4 commits logged)</span>
+          <span className="text-cyan-400 font-semibold">main (4 milestones logged)</span>
         </div>
       </div>
 
-      {/* Ubuntu Linux Git Graph / System Trace Window */}
+      {/* Ubuntu Linux Git Graph / Career Path Window */}
       <div className="glass-panel rounded-lg overflow-hidden border border-cyan-500/30 shadow-[0_0_35px_rgba(34,211,238,0.12)]">
         {/* Ubuntu GNOME Window Titlebar */}
         <div className="bg-[#1e1e22] border-b border-[#2d2f36] px-3 py-2 flex items-center justify-between select-none">
@@ -60,7 +60,7 @@ export const Journey: React.FC = () => {
               git-graph
             </span>
             <span className="font-mono text-xs text-slate-300 font-medium hidden sm:inline">
-              nicholas-beighley/career-trace.git — [branch: main]
+              nicholas-beighley/career-path.git — [branch: main]
             </span>
           </div>
 
@@ -122,9 +122,9 @@ export const Journey: React.FC = () => {
             <div className="px-2 py-1 text-[11px] uppercase tracking-wider text-slate-500 flex items-center justify-between border-b border-white/5 pb-2">
               <span className="flex items-center gap-1.5">
                 <FolderTree className="w-3 h-3 text-slate-400" />
-                Commit History & Merges
+                Career Progression & Milestones
               </span>
-              <span>4 Commits</span>
+              <span>4 Milestones</span>
             </div>
 
             <div className="space-y-1.5 pt-1">
