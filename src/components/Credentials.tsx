@@ -118,7 +118,7 @@ export const Credentials: React.FC = () => {
         </div>
 
         {/* Main Certificate Workbench */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[500px] bg-[#0c0d12]/95">
+        <div className="grid grid-cols-1 lg:grid-cols-12 lg:h-[720px] bg-[#0c0d12]/95">
           {/* Left Column: Sector Category Navigator */}
           <div className="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-[#25272e] p-3 sm:p-4 space-y-2 font-mono">
             <div className="px-2 py-1 text-[11px] uppercase tracking-wider text-slate-500 flex items-center justify-between border-b border-white/5 pb-2">
@@ -194,10 +194,10 @@ export const Credentials: React.FC = () => {
           </div>
 
           {/* Right Column: Verified Certificate Cards Grid */}
-          <div className="lg:col-span-8 p-4 sm:p-6 flex flex-col justify-between relative overflow-hidden">
-            <div className="space-y-4">
+          <div className="lg:col-span-8 p-4 sm:p-6 flex flex-col relative overflow-hidden h-[520px] sm:h-[620px] lg:h-[720px]">
+            <div className="flex flex-col h-full min-h-0">
               {/* Category Subheader */}
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-3 mb-4 shrink-0">
                 <div className="space-y-0.5">
                   <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider">
                     Target Keystore
@@ -211,8 +211,9 @@ export const Credentials: React.FC = () => {
                 </div>
               </div>
 
-              {/* Grid of Authentic Certificate Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Scrollable grid of Authentic Certificate Cards */}
+              <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden pr-1 cert-scroll">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 content-start pb-2">
                 {activeData.certs.map((cert, idx) => (
                   <div
                     key={idx}
@@ -308,6 +309,7 @@ export const Credentials: React.FC = () => {
                     )}
                   </div>
                 ))}
+                </div>
               </div>
             </div>
 

@@ -26,6 +26,9 @@ type Stage =
   | 'TYPE_DOCKER'
   | 'DOCKER_OUTPUT'
   | 'CONTAINER_READY'
+  | 'TYPE_CLEAR'
+  | 'CLEAR_ENTER'
+  | 'CLEARED'
   | 'TYPE_SUMMARY';
 
 const WORKTREE_LOGS = [
@@ -49,11 +52,13 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
   const [typedCd, setTypedCd] = useState('');
   const [typedDocker, setTypedDocker] = useState('');
   const [visibleDockerLogsCount, setVisibleDockerLogsCount] = useState(0);
+  const [typedClear, setTypedClear] = useState('');
   const [sessionKey, setSessionKey] = useState(0);
 
   const worktreeCommand = personalInfo.gitWorktreeCommand;
   const cdCommand = personalInfo.gitCdCommand;
   const dockerCommand = personalInfo.dockerCommand;
+  const clearCommand = personalInfo.clearCommand ?? 'clear';
 
   // Restart entire simulation sequence
   const handleRestart = () => {
@@ -63,6 +68,7 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
     setTypedCd('');
     setTypedDocker('');
     setVisibleDockerLogsCount(0);
+    setTypedClear('');
     setSessionKey((prev) => prev + 1);
   };
 
@@ -166,25 +172,61 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
         } else {
           timeoutId = window.setTimeout(() => {
             if (isMounted) setStage('CONTAINER_READY');
-          }, 180);
+          }, 220);
         }
       };
 
       timeoutId = window.setTimeout(streamNextLog, 100);
     }
 
-    // Sequence 7: Dev container ready
+    // Sequence 7: Dev container ready, prompt appears
     else if (stage === 'CONTAINER_READY') {
       timeoutId = window.setTimeout(() => {
+        if (isMounted) setStage('TYPE_CLEAR');
+      }, 350);
+    }
+
+    // Sequence 8: Type clear command inside dev container
+    else if (stage === 'TYPE_CLEAR') {
+      let index = 0;
+      setTypedClear('');
+
+      const typeClear = () => {
+        if (!isMounted) return;
+
+        if (index < clearCommand.length) {
+          index++;
+          setTypedClear(clearCommand.slice(0, index));
+          timeoutId = window.setTimeout(typeClear, 45);
+        } else {
+          timeoutId = window.setTimeout(() => {
+            if (isMounted) setStage('CLEAR_ENTER');
+          }, 220);
+        }
+      };
+
+      timeoutId = window.setTimeout(typeClear, 150);
+    }
+
+    // Sequence 9: Clear command executed (Enter key simulation)
+    else if (stage === 'CLEAR_ENTER') {
+      timeoutId = window.setTimeout(() => {
+        if (isMounted) setStage('CLEARED');
+      }, 200);
+    }
+
+    // Sequence 10: Screen is cleared, pause briefly before summary typewriter
+    else if (stage === 'CLEARED') {
+      timeoutId = window.setTimeout(() => {
         if (isMounted) setStage('TYPE_SUMMARY');
-      }, 150);
+      }, 250);
     }
 
     return () => {
       isMounted = false;
       if (timeoutId) window.clearTimeout(timeoutId);
     };
-  }, [stage, worktreeCommand, cdCommand, dockerCommand, sessionKey]);
+  }, [stage, worktreeCommand, cdCommand, dockerCommand, clearCommand, sessionKey]);
 
   // Initial prompt in portfolio root
   const initialPrompt = (
@@ -220,7 +262,13 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
   );
 
   const isPastCd = stage !== 'TYPE_WORKTREE' && stage !== 'WORKTREE_OUTPUT' && stage !== 'TYPE_CD';
-  const isInContainer = stage === 'CONTAINER_READY' || stage === 'TYPE_SUMMARY';
+  const isInContainer =
+    stage === 'CONTAINER_READY' ||
+    stage === 'TYPE_CLEAR' ||
+    stage === 'CLEAR_ENTER' ||
+    stage === 'CLEARED' ||
+    stage === 'TYPE_SUMMARY';
+  const isCleared = stage === 'CLEARED' || stage === 'TYPE_SUMMARY';
 
   // Dynamic tab label
   let activeTabTitle = `${personalInfo.terminalUser}@${personalInfo.terminalHost}: ~/portfolio`;
@@ -348,7 +396,7 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
 
       {/* Terminal Screen Body with Zero-Layout-Shift Grid Overlay */}
       <div className="p-5 md:p-6 bg-[#0c0d12]/95 relative grid grid-cols-1">
-        {/* Phantom Layer: Establishes exact responsive height for the completed multi-step session */}
+        {/* Phantom Layer 1: Establishes exact responsive height for pre-clear startup sequence */}
         <div
           className="col-start-1 row-start-1 font-mono text-sm md:text-base leading-relaxed invisible select-none pointer-events-none break-words space-y-2"
           aria-hidden="true"
@@ -375,6 +423,18 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
               <div key={i}>{log.text}</div>
             ))}
           </div>
+          <div>
+            <span className="inline-block whitespace-nowrap mr-2">{containerPrompt}</span>
+            <span>{clearCommand}</span>
+          </div>
+          <div className="h-6 sm:h-8" aria-hidden="true" />
+        </div>
+
+        {/* Phantom Layer 2: Establishes exact responsive height for post-clear summary sequence */}
+        <div
+          className="col-start-1 row-start-1 font-mono text-sm md:text-base leading-relaxed invisible select-none pointer-events-none break-words space-y-2"
+          aria-hidden="true"
+        >
           <div className="pt-1">
             <span className="inline-block whitespace-nowrap mr-2">{containerPrompt}</span>
             {personalInfo.introBio.split(' ').map((word, idx) => (
@@ -385,7 +445,6 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
             ))}
             <span className="inline-block w-2 h-4 ml-1 align-middle" />
           </div>
-          {/* Sizing Buffer: Ensures terminal box is slightly larger to completely eliminate layout shifts */}
           <div className="h-6 sm:h-8" aria-hidden="true" />
         </div>
 
@@ -394,70 +453,94 @@ export const UbuntuTerminal: React.FC<UbuntuTerminalProps> = ({ className = '' }
           key={sessionKey}
           className="col-start-1 row-start-1 font-mono text-sm md:text-base leading-relaxed space-y-2"
         >
-          {/* Step 1: Workstation git worktree command */}
-          <div>
-            <span className="inline-block whitespace-nowrap mr-2 select-none">
-              {initialPrompt}
-            </span>
-            <span className="text-slate-200">{typedWorktree}</span>
-            {stage === 'TYPE_WORKTREE' && (
-              <span className="animate-pulse inline-block w-2 h-4 bg-cyan-400 ml-0.5 align-middle" />
-            )}
-          </div>
+          {!isCleared ? (
+            <>
+              {/* Step 1: Workstation git worktree command */}
+              <div>
+                <span className="inline-block whitespace-nowrap mr-2 select-none">
+                  {initialPrompt}
+                </span>
+                <span className="text-slate-200">{typedWorktree}</span>
+                {stage === 'TYPE_WORKTREE' && (
+                  <span className="animate-pulse inline-block w-2 h-4 bg-cyan-400 ml-0.5 align-middle" />
+                )}
+              </div>
 
-          {/* Step 2: Git worktree output */}
-          {showWorktreeOutput && (
-            <div className="space-y-0.5 text-xs sm:text-sm text-slate-400 pl-2 border-l border-slate-700/60 my-0.5">
-              {WORKTREE_LOGS.map((line, idx) => (
-                <div key={idx}>{line}</div>
-              ))}
-            </div>
-          )}
-
-          {/* Step 3: cd command into working tree */}
-          {showWorktreeOutput && (
-            <div>
-              <span className="inline-block whitespace-nowrap mr-2 select-none">
-                {initialPrompt}
-              </span>
-              <span className="text-slate-200">{typedCd}</span>
-              {stage === 'TYPE_CD' && (
-                <span className="animate-pulse inline-block w-2 h-4 bg-cyan-400 ml-0.5 align-middle" />
-              )}
-            </div>
-          )}
-
-          {/* Step 4: Docker command in working tree */}
-          {isPastCd && (
-            <div>
-              <span className="inline-block whitespace-nowrap mr-2 select-none">
-                {worktreePrompt}
-              </span>
-              <span className="text-slate-200">{typedDocker}</span>
-              {stage === 'TYPE_DOCKER' && (
-                <span className="animate-pulse inline-block w-2 h-4 bg-cyan-400 ml-0.5 align-middle" />
-              )}
-            </div>
-          )}
-
-          {/* Step 5: Docker Pull & Container Boot Output Logs */}
-          {visibleDockerLogsCount > 0 && (
-            <div className="space-y-0.5 text-xs sm:text-sm pl-2 border-l border-cyan-500/30 my-1 bg-black/30 py-1.5 rounded-r">
-              {DOCKER_LOGS.slice(0, visibleDockerLogsCount).map((log, idx) => (
-                <div key={idx} className={`${log.color} font-mono tracking-wide`}>
-                  {log.text}
+              {/* Step 2: Git worktree output */}
+              {showWorktreeOutput && (
+                <div className="space-y-0.5 text-xs sm:text-sm text-slate-400 pl-2 border-l border-slate-700/60 my-0.5">
+                  {WORKTREE_LOGS.map((line, idx) => (
+                    <div key={idx}>{line}</div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          )}
+              )}
 
-          {/* Step 6: Dev Container Interactive Shell & Professional Summary Typewriter */}
-          {isInContainer && (
+              {/* Step 3: cd command into working tree */}
+              {showWorktreeOutput && (
+                <div>
+                  <span className="inline-block whitespace-nowrap mr-2 select-none">
+                    {initialPrompt}
+                  </span>
+                  <span className="text-slate-200">{typedCd}</span>
+                  {stage === 'TYPE_CD' && (
+                    <span className="animate-pulse inline-block w-2 h-4 bg-cyan-400 ml-0.5 align-middle" />
+                  )}
+                </div>
+              )}
+
+              {/* Step 4: Docker command in working tree */}
+              {isPastCd && (
+                <div>
+                  <span className="inline-block whitespace-nowrap mr-2 select-none">
+                    {worktreePrompt}
+                  </span>
+                  <span className="text-slate-200">{typedDocker}</span>
+                  {stage === 'TYPE_DOCKER' && (
+                    <span className="animate-pulse inline-block w-2 h-4 bg-cyan-400 ml-0.5 align-middle" />
+                  )}
+                </div>
+              )}
+
+              {/* Step 5: Docker Pull & Container Boot Output Logs */}
+              {visibleDockerLogsCount > 0 && (
+                <div className="space-y-0.5 text-xs sm:text-sm pl-2 border-l border-cyan-500/30 my-1 bg-black/30 py-1.5 rounded-r">
+                  {DOCKER_LOGS.slice(0, visibleDockerLogsCount).map((log, idx) => (
+                    <div key={idx} className={`${log.color} font-mono tracking-wide`}>
+                      {log.text}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Step 6: Dev Container Prompt & Animate User Typing 'clear' */}
+              {isInContainer && (
+                <div>
+                  <span className="inline-block whitespace-nowrap mr-2 select-none">
+                    {containerPrompt}
+                  </span>
+                  <span className="text-slate-200">{typedClear}</span>
+                  {(stage === 'CONTAINER_READY' || stage === 'TYPE_CLEAR' || stage === 'CLEAR_ENTER') && (
+                    <span className="animate-pulse inline-block w-2 h-4 bg-cyan-400 ml-0.5 align-middle" />
+                  )}
+                </div>
+              )}
+            </>
+          ) : (
+            /* Step 7: Cleared Dev Container & Professional Summary Typewriter */
             <div className="pt-1">
-              <TypewriterText
-                text={personalInfo.introBio}
-                prompt={containerPrompt}
-              />
+              {stage === 'CLEARED' ? (
+                <div>
+                  <span className="inline-block whitespace-nowrap mr-2 select-none">
+                    {containerPrompt}
+                  </span>
+                  <span className="animate-pulse inline-block w-2 h-4 bg-cyan-400 ml-0.5 align-middle" />
+                </div>
+              ) : (
+                <TypewriterText
+                  text={personalInfo.introBio}
+                  prompt={containerPrompt}
+                />
+              )}
             </div>
           )}
         </div>

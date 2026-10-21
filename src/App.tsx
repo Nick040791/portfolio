@@ -11,7 +11,7 @@ import {
 
 export default function App() {
   return (
-    <div className="min-h-screen text-slate-200 screen-bg relative overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-100 font-sans">
+    <div className="min-h-screen text-slate-200 screen-bg relative overflow-x-clip selection:bg-cyan-500/30 selection:text-cyan-100 font-sans">
       <ScreenFrame />
       <Scanline />
       <Navbar />
