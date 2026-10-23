@@ -1,6 +1,7 @@
 name = "portfolio-bot-worker"
 main = "src/index.js"
 compatibility_date = "2024-11-01"
+account_id = "f7287b75028f703edf0a60093660f471"
 
 [vars]
 ALLOWED_ORIGIN = "https://nick040791.github.io"
