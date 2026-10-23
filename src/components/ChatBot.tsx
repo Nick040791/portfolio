@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Bot, Send, X, Loader2, WifiOff } from 'lucide-react';
+import { Send, X, Loader2, WifiOff } from 'lucide-react';
 import {
   ChatMessage,
   checkHealth,
@@ -235,9 +235,8 @@ const ChatBot: React.FC<ChatBotProps> = ({ avatarSrc }) => {
           {avatarSrc ? (
             <img src={avatarSrc} alt="" className="h-full w-full object-cover" />
           ) : (
-            <span className="flex flex-col items-center justify-center text-cyan-300 font-mono">
-              <Bot className="w-6 h-6" />
-              <span className="text-[9px] tracking-widest mt-0.5">NB</span>
+            <span className="flex items-center justify-center text-cyan-300 font-mono text-2xl font-bold">
+              ?
             </span>
           )}
           {reachable && (
@@ -257,11 +256,11 @@ const ChatBot: React.FC<ChatBotProps> = ({ avatarSrc }) => {
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-cyan-400/20 bg-black/30">
             <div className="flex items-center space-x-2">
-              <Bot className="w-5 h-5 text-cyan-400" />
+              <span className="flex items-center justify-center w-5 h-5 text-cyan-400 font-mono font-bold text-lg">?</span>
               <div className="leading-tight">
                 <p className="font-mono text-sm text-cyan-300 neon-text-cyan">portfolio-bot</p>
                 <p className="font-mono text-[10px] text-slate-400">
-                  {reachable ? 'online · gemini' : 'offline'}
+                  {reachable ? 'online' : 'offline'}
                 </p>
               </div>
             </div>
@@ -350,7 +349,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ avatarSrc }) => {
               )}
             </div>
             <p className="mt-1.5 text-[9px] font-mono text-slate-500">
-              model: gemini · not affiliated with any AI vendor
+              not affiliated with any AI vendor
             </p>
           </div>
         </div>
