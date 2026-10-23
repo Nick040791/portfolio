@@ -137,7 +137,9 @@ export default {
           temperature: 0.7,
           topP: 0.95,
           topK: 64,
-          maxOutputTokens: 1024,
+          maxOutputTokens: 512,
+          // Disable "thinking" for lower latency on flash models.
+          thinkingConfig: { thinkingBudget: 0 },
         },
       };
 
