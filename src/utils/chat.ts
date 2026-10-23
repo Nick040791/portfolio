@@ -116,7 +116,11 @@ export async function streamChat({
     }
     onDone?.();
   } catch (err) {
-    if (err instanceof DOMException && err.name === 'AbortError') return;
+    if (err instanceof DOMException && err.name === 'AbortError') {
+      // Treat abort as a normal completion so the UI resets streaming state.
+      onDone?.();
+      return;
+    }
     onError?.(err instanceof Error ? err : new Error(String(err)));
   }
 }

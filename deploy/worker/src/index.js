@@ -122,7 +122,7 @@ export default {
         });
       }
 
-      const model = env.MODEL || 'gemini-2.0-flash';
+      const model = env.MODEL || 'gemini-3.8-flash';
       const geminiContents = messages
         .filter((m) => m && m.role !== 'system')
         .map((m) => ({

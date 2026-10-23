@@ -10,6 +10,34 @@ interface ChatBotProps {
   avatarSrc?: string;
 }
 
+interface MessageBubbleProps {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  align: 'start' | 'end';
+  showTyping: boolean;
+}
+
+const MessageBubble = React.memo(({ role, content, align, showTyping }: MessageBubbleProps) => {
+  return (
+    <div className={`flex ${align === 'end' ? 'justify-end' : 'justify-start'}`}>
+      <div
+        className={`max-w-[85%] rounded-xl px-3 py-2 whitespace-pre-wrap break-words ${
+          role === 'user'
+            ? 'bg-cyan-500/15 border border-cyan-400/30 text-cyan-100'
+            : 'bg-white/5 border border-white/10 text-slate-200'
+        }`}
+      >
+        {content ||
+          (showTyping ? (
+            <span className="inline-flex items-center text-slate-400">
+              <Loader2 className="w-3 h-3 animate-spin mr-1" /> thinking…
+            </span>
+          ) : null)}
+      </div>
+    </div>
+  );
+});
+
 const ChatBot: React.FC<ChatBotProps> = ({ avatarSrc }) => {
   const [reachable, setReachable] = useState<boolean | null>(null);
   const [open, setOpen] = useState(false);
@@ -23,6 +51,8 @@ const ChatBot: React.FC<ChatBotProps> = ({ avatarSrc }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
   const avatarButtonRef = useRef<HTMLButtonElement>(null);
+  const pendingRef = useRef<string>('');
+  const rafRef = useRef<number | null>(null);
 
   // Reachability probe.
   const probe = useCallback(async () => {
@@ -77,6 +107,13 @@ const ChatBot: React.FC<ChatBotProps> = ({ avatarSrc }) => {
     }
   }, [messages, streaming]);
 
+  // Cancel any pending animation frame on unmount.
+  useEffect(() => {
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
   // Focus input when opened.
   useEffect(() => {
     if (open) inputRef.current?.focus();
@@ -99,24 +136,47 @@ const ChatBot: React.FC<ChatBotProps> = ({ avatarSrc }) => {
     const controller = new AbortController();
     abortRef.current = controller;
 
+    const flushPending = () => {
+      const pending = pendingRef.current;
+      if (!pending) return;
+      pendingRef.current = '';
+      setMessages((prev) => {
+        const copy = [...prev];
+        const last = copy[copy.length - 1];
+        if (last && last.role === 'assistant') {
+          copy[copy.length - 1] = { ...last, content: last.content + pending };
+        }
+        return copy;
+      });
+    };
+
     await streamChat({
       messages: nextMessages,
       signal: controller.signal,
       onToken: (token) => {
-        setMessages((prev) => {
-          const copy = [...prev];
-          const last = copy[copy.length - 1];
-          if (last && last.role === 'assistant') {
-            copy[copy.length - 1] = { ...last, content: last.content + token };
-          }
-          return copy;
-        });
+        pendingRef.current += token;
+        if (rafRef.current === null) {
+          rafRef.current = requestAnimationFrame(() => {
+            rafRef.current = null;
+            flushPending();
+          });
+        }
       },
       onDone: () => {
+        if (rafRef.current !== null) {
+          cancelAnimationFrame(rafRef.current);
+          rafRef.current = null;
+        }
+        flushPending();
         setStreaming(false);
         abortRef.current = null;
       },
       onError: (err) => {
+        if (rafRef.current !== null) {
+          cancelAnimationFrame(rafRef.current);
+          rafRef.current = null;
+        }
+        pendingRef.current = '';
         setStreaming(false);
         abortRef.current = null;
         // Remove empty placeholder if nothing was streamed.
@@ -143,9 +203,15 @@ const ChatBot: React.FC<ChatBotProps> = ({ avatarSrc }) => {
 
   const stop = () => {
     abortRef.current?.abort();
+    setStreaming(false);
   };
 
   const clear = () => {
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+    pendingRef.current = '';
     setMessages([]);
     setError(null);
   };
@@ -186,7 +252,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ avatarSrc }) => {
           ref={panelRef}
           role="dialog"
           aria-label="Chat with Nicholas"
-          className="fixed bottom-24 right-6 z-[60] w-[min(92vw,380px)] h-[min(70vh,520px)] flex flex-col glass-panel rounded-2xl border border-cyan-400/30 shadow-[0_0_40px_rgba(34,211,238,0.25)] overflow-hidden"
+          className="fixed bottom-24 right-6 z-[60] w-[min(92vw,380px)] h-[min(70vh,520px)] flex flex-col rounded-2xl border border-cyan-400/30 bg-[#0a0f19]/95 shadow-[0_0_40px_rgba(34,211,238,0.25)] overflow-hidden"
         >
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-cyan-400/20 bg-black/30">
@@ -227,24 +293,13 @@ const ChatBot: React.FC<ChatBotProps> = ({ avatarSrc }) => {
               </div>
             )}
             {messages.map((m, i) => (
-              <div
+              <MessageBubble
                 key={i}
-                className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-[85%] rounded-xl px-3 py-2 whitespace-pre-wrap break-words ${
-                    m.role === 'user'
-                      ? 'bg-cyan-500/15 border border-cyan-400/30 text-cyan-100'
-                      : 'bg-white/5 border border-white/10 text-slate-200'
-                  }`}
-                >
-                  {m.content || (streaming && i === messages.length - 1 ? (
-                    <span className="inline-flex items-center text-slate-400">
-                      <Loader2 className="w-3 h-3 animate-spin mr-1" /> thinking…
-                    </span>
-                  ) : null)}
-                </div>
-              </div>
+                role={m.role}
+                content={m.content}
+                align={m.role === 'user' ? 'end' : 'start'}
+                showTyping={streaming && i === messages.length - 1 && m.role === 'assistant' && m.content === ''}
+              />
             ))}
             {error && (
               <div className="flex items-start space-x-2 text-xs text-rose-300 bg-rose-500/10 border border-rose-400/30 rounded-lg px-3 py-2">
