@@ -7,6 +7,7 @@ import {
   Footer,
   Scanline,
   ScreenFrame,
+  ChatBot,
 } from './components';
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
       </main>
 
       <Footer />
+      <ChatBot />
     </div>
   );
 }

@@ -9,5 +9,6 @@ export { Credentials } from './Credentials';
 export { Footer } from './Footer';
 export { Scanline } from './Scanline';
 export { ScreenFrame } from './ScreenFrame';
+export { default as ChatBot } from './ChatBot';
 export { GithubIcon, LinkedinIcon } from './Icons';
 export * from './Logos';

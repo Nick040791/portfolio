@@ -45,3 +45,11 @@ portfolio/
 - **`npm run dev`**: Starts the local Vite development server with Hot Module Replacement (HMR) at `http://localhost:3000`.
 - **`npm run build`**: Runs TypeScript type-checking and builds production-ready optimized assets into `/dist`.
 - **`npm run preview`**: Locally serves the production build from `/dist`.
+
+## Chatbot (portfolio-bot)
+
+The floating chat widget talks to an Ollama-compatible backend serving the `portfolio-bot` model.
+
+- Frontend config: set `VITE_OLLAMA_URL` (see `.env.example`). Defaults to `http://localhost:11434` for local dev.
+- The widget only renders when the backend's `/health` endpoint is reachable; it re-probes every 30s.
+- Backend setup (free, no card): Cloudflare Worker — see `deploy/README.md` and `deploy/worker/`.
