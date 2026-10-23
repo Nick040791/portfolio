@@ -87,6 +87,26 @@ export default {
       return new Response(null, { status: 204, headers: cors });
     }
 
+    if (url.pathname === '/models' && request.method === 'GET') {
+      const apiKey = env.GEMINI_API_KEY;
+      if (!apiKey) {
+        return new Response(JSON.stringify({ error: 'missing key' }), {
+          status: 500, headers: { 'Content-Type': 'application/json', ...cors },
+        });
+      }
+      try {
+        const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`);
+        const data = await r.json();
+        return new Response(JSON.stringify(data), {
+          status: r.status, headers: { 'Content-Type': 'application/json', ...cors },
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: String(err?.message || err) }), {
+          status: 502, headers: { 'Content-Type': 'application/json', ...cors },
+        });
+      }
+    }
+
     if (url.pathname === '/health' && request.method === 'GET') {
       return new Response(JSON.stringify({ ok: true, model: env.MODEL || 'gemini' }), {
         status: 200,
@@ -122,7 +142,7 @@ export default {
         });
       }
 
-      const model = env.MODEL || 'gemini-3.8-flash';
+      const model = env.MODEL || 'gemini-3.5-flash-lite';
       const geminiContents = messages
         .filter((m) => m && m.role !== 'system')
         .map((m) => ({
@@ -137,9 +157,7 @@ export default {
           temperature: 0.7,
           topP: 0.95,
           topK: 64,
-          maxOutputTokens: 512,
-          // Disable "thinking" for lower latency on flash models.
-          thinkingConfig: { thinkingBudget: 0 },
+          maxOutputTokens: 256,
         },
       };
 
