@@ -1,0 +1,6 @@
+# Replace 203.0.113.10 with your VM's public IP.
+# Caddy will obtain a Let's Encrypt cert for <ip>.nip.io automatically.
+203.0.113.10.nip.io {
+    reverse_proxy 127.0.0.1:3000
+    encode gzip
+}
