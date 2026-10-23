@@ -5,7 +5,7 @@ account_id = "aa5e1277f29e08d6ba49d226a7e6b0a2"
 
 [vars]
 ALLOWED_ORIGIN = "https://nick040791.github.io"
-MODEL = "gemini-2.0-flash"
+MODEL = "gemini-3.8-flash"
 
 # Set the secret (never commit it):
 #   npx wrangler secret put GEMINI_API_KEY
