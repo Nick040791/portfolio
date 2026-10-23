@@ -52,5 +52,4 @@ The floating chat widget talks to an Ollama-compatible backend serving the `port
 
 - Frontend config: set `VITE_OLLAMA_URL` (see `.env.example`). Defaults to `http://localhost:11434` for local dev.
 - The widget only renders when the backend's `/health` endpoint is reachable; it re-probes every 30s.
-- Backend setup (recommended, no card): Hugging Face Spaces — see `deploy/README.md` (Option A) and `deploy/Dockerfile`.
-- Alternative backend (requires a card): Oracle Cloud free tier — `deploy/setup.sh`.
+- Backend setup (free, no card): Cloudflare Worker — see `deploy/README.md` and `deploy/worker/`.

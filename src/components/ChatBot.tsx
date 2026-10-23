@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Bot, Send, X, Loader2, WifiOff } from 'lucide-react';
 import {
   ChatMessage,
-  OLLAMA_MODEL,
   checkHealth,
   streamChat,
 } from '../utils/chat';
@@ -196,7 +195,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ avatarSrc }) => {
               <div className="leading-tight">
                 <p className="font-mono text-sm text-cyan-300 neon-text-cyan">portfolio-bot</p>
                 <p className="font-mono text-[10px] text-slate-400">
-                  {reachable ? 'online · gemma4:e2b' : 'offline'}
+                  {reachable ? 'online · gemini' : 'offline'}
                 </p>
               </div>
             </div>
@@ -296,7 +295,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ avatarSrc }) => {
               )}
             </div>
             <p className="mt-1.5 text-[9px] font-mono text-slate-500">
-              model: {OLLAMA_MODEL} · not affiliated with any AI vendor
+              model: gemini · not affiliated with any AI vendor
             </p>
           </div>
         </div>
